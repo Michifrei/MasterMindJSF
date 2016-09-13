@@ -4,187 +4,470 @@
 <?import java.util.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="750.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <GridPane gridLinesVisible="true" layoutX="14.0" layoutY="13.0" prefHeight="672.0000999999975" prefWidth="472.0">
+    <ImageView fitHeight="75.0" fitWidth="417.0" layoutX="201.0" layoutY="692.0" pickOnBounds="true" preserveRatio="true" x="-200.0">
+      <image>
+        <Image url="http://swiss-talent-forum.ch/wordpress1/wp-content/uploads/2012/11/cropped-header_nl.png" />
+      </image>
+    </ImageView>
+    <GridPane gridLinesVisible="true" layoutX="236.0" layoutY="10.0" prefHeight="730.0" prefWidth="500.0">
       <children>
         <VBox alignment="BOTTOM_CENTER" disable="false" fillWidth="true" focusTraversable="true" maxHeight="500.0" minHeight="-Infinity" prefHeight="0.0" prefWidth="362.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
           <children>
-            <HBox alignment="TOP_CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="346.0">
+            <HBox fx:id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
               <children>
-                <StackPane fx:id="plus1" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" visible="true">
-                  <children>
-                    <Circle radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
-                      <fill>
-                        <Color blue="1.000" green="1.000" opacity="0.000" red="1.000" fx:id="x1" />
-                      </fill>
-                    </Circle>
-                    <Line endX="15.0" startX="-15.0" strokeWidth="2.0" />
-                    <Line endX="0.0" endY="15.0" startX="0.0" startY="-15.0" strokeWidth="2.0" />
-                  </children>
-                  <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
-                  </HBox.margin>
-                </StackPane>
-                <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0">
-                  <children>
-                    <Circle fill="$x1" radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-                    <Line endX="15.0" startX="-15.0" strokeWidth="2.0" />
-                    <Line endX="0.0" endY="15.0" startX="0.0" startY="-15.0" strokeWidth="2.0" />
-                  </children>
-                  <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
-                  </HBox.margin>
-                </StackPane>
-                <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0">
-                  <children>
-                    <Circle fill="$x1" radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-                    <Line endX="15.0" startX="-15.0" strokeWidth="2.0" />
-                    <Line endX="0.0" endY="15.0" startX="0.0" startY="-15.0" strokeWidth="2.0" />
-                  </children>
-                  <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
-                  </HBox.margin>
-                </StackPane>
-                <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0">
-                  <children>
-                    <Circle fill="$x1" radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-                    <Line endX="15.0" startX="-15.0" strokeWidth="2.0" />
-                    <Line endX="0.0" endY="15.0" startX="0.0" startY="-15.0" strokeWidth="2.0" />
-                  </children>
-                  <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
-                  </HBox.margin>
-                </StackPane>
-              </children>
-            </HBox>
-            <HBox alignment="TOP_CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="346.0">
-              <children>
-                <Circle radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
+                <Circle fx:id="dot1" disable="true" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
                   <fill>
-                    <Color blue="0.400" green="1.000" red="0.000" fx:id="x6" />
+                    <Color blue="0.750" green="0.750" red="0.750" fx:id="x1" />
                   </fill>
                   <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
                   </HBox.margin>
                 </Circle>
-                <Circle fill="$x6" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
-                  <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
-                  </HBox.margin>
-                </Circle>
-                <Circle fill="$x6" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
-                  <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
-                  </HBox.margin>
-                </Circle>
-                <Circle fill="#fff500" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
-                  <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
-                  </HBox.margin>
-                </Circle>
+                <Circle fx:id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle fx:id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle fx:id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
               </children>
             </HBox>
-            <HBox alignment="TOP_CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="346.0">
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
               <children>
-                <Circle fill="$x6" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
                   <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
                   </HBox.margin>
                 </Circle>
-                <Circle fill="$x6" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
                   <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
                   </HBox.margin>
                 </Circle>
-                <Circle fill="$x6" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
                   <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
                   </HBox.margin>
                 </Circle>
-                <Circle fill="#0066ff" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
                   <HBox.margin>
-                    <Insets bottom="7.5" left="5.0" right="5.0" top="7.5" fx:id="x2" />
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
                   </HBox.margin>
                 </Circle>
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
+                  <HBox.margin>
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
+                  </HBox.margin>
+                </Circle>
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
+                  <HBox.margin>
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
+                  </HBox.margin>
+                </Circle>
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
+                  <HBox.margin>
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
+                  </HBox.margin>
+                </Circle>
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
+                  <HBox.margin>
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
+                  </HBox.margin>
+                </Circle>
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
+                  <HBox.margin>
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
+                  </HBox.margin>
+                </Circle>
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
+                  <HBox.margin>
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
+                  </HBox.margin>
+                </Circle>
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+              </children>
+            </HBox>
+            <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0">
+              <children>
+                <Circle id="dot1" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER">
+                  <HBox.margin>
+                    <Insets left="5.0" right="5.0" fx:id="x8" />
+                  </HBox.margin>
+                </Circle>
+                <Circle id="dot2" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot3" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
+                <Circle id="dot4" disable="true" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="false" HBox.hgrow="NEVER" HBox.margin="$x8" />
               </children>
             </HBox>
           </children>
+          <GridPane.margin>
+            <Insets bottom="10.0" fx:id="x5" />
+          </GridPane.margin>
         </VBox>
         <HBox alignment="TOP_CENTER" fillHeight="true" prefHeight="76.0" prefWidth="360.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
           <children>
-            <Button contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true">
+            <Button fx:id="blueButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Blue" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true">
               <HBox.margin>
                 <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" fx:id="x3" />
               </HBox.margin>
             </Button>
-            <Button contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="greenButon" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Green" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="yellowButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Yellow" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="redButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Red" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button id="purpleButton" fx:id="PurpleButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Purple" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="orangeButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Orange" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
           </children>
         </HBox>
-        <VBox alignment="BOTTOM_CENTER" prefHeight="481.0" prefWidth="75.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <VBox alignment="BOTTOM_CENTER" padding="$x5" prefHeight="490.0" prefWidth="124.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <children>
-            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="75.0">
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
               <children>
-                <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0">
-                  <children>
-                    <Circle fill="BLACK" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-                      <HBox.margin>
-                        <Insets left="3.0" right="3.0" fx:id="x4" />
-                      </HBox.margin>
-                    </Circle>
-                  </children>
-                  <VBox.margin>
-                    <Insets fx:id="x5" />
-                  </VBox.margin>
-                </HBox>
-                <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" VBox.margin="$x5">
-                  <children>
-                    <Circle fill="BLACK" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
-                    <Circle fill="BLACK" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
-                  </children>
-                </HBox>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
               </children>
-              <padding>
-                <Insets top="7.5" />
-              </padding>
-            </VBox>
-            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="75.0">
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
               <children>
-                <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0">
-                  <children>
-                    <Circle fill="BLACK" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-                      <HBox.margin>
-                        <Insets left="3.0" right="3.0" fx:id="x4" />
-                      </HBox.margin>
-                    </Circle>
-                    <Circle fill="BLACK" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
-                  </children>
-                  <VBox.margin>
-                    <Insets fx:id="x5" />
-                  </VBox.margin>
-                </HBox>
-                <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" VBox.margin="$x5">
-                  <children>
-                    <Circle fill="BLACK" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
-                    <Circle fill="BLACK" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
-                  </children>
-                </HBox>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
               </children>
-              <padding>
-                <Insets top="7.5" />
-              </padding>
-            </VBox>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0">
+              <children>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.margin="$x4" />
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+                <Circle fill="BLACK" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                  <HBox.margin>
+                    <Insets left="3.0" right="3.0" fx:id="x4" />
+                  </HBox.margin>
+                </Circle>
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </HBox>
           </children>
         </VBox>
-        <HBox alignment="TOP_CENTER" fillHeight="true" prefHeight="75.0" prefWidth="360.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <HBox alignment="CENTER" fillHeight="true" prefHeight="75.0" prefWidth="360.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <children>
             <Circle fill="DODGERBLUE" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
               <HBox.margin>
@@ -204,6 +487,12 @@
             </Circle>
           </children>
         </HBox>
+        <Button fx:id="giveUpButton" mnemonicParsing="false" text="Give up" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+          <font>
+            <Font size="20.0" fx:id="x6" />
+          </font>
+        </Button>
+        <Button fx:id="guessButton" font="$x6" mnemonicParsing="false" text="Guess" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="360.0" />
@@ -215,5 +504,39 @@
         <RowConstraints maxHeight="222.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
+    <Pane layoutX="0.0" layoutY="0.0" prefHeight="738.0" prefWidth="224.0">
+      <children>
+        <VBox alignment="TOP_CENTER" layoutX="11.0" layoutY="12.0" prefHeight="598.0" prefWidth="213.0">
+          <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mastermind" textAlignment="JUSTIFY">
+              <font>
+                <Font name="Monospaced Bold" size="32.0" />
+              </font>
+              <VBox.margin>
+                <Insets bottom="10.0" fx:id="x5" />
+              </VBox.margin>
+            </Text>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="New Game">
+              <font>
+                <Font size="15.0" fx:id="x7" />
+              </font>
+              <VBox.margin>
+                <Insets bottom="5.0" top="5.0" />
+              </VBox.margin>
+            </Button>
+            <Button font="$x7" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="AI Player">
+              <VBox.margin>
+                <Insets bottom="5.0" top="5.0" />
+              </VBox.margin>
+            </Button>
+            <Button font="$x7" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Manual">
+              <VBox.margin>
+                <Insets bottom="5.0" top="5.0" />
+              </VBox.margin>
+            </Button>
+          </children>
+        </VBox>
+      </children>
+    </Pane>
   </children>
 </AnchorPane>
