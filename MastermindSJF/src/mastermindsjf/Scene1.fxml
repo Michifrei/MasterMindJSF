@@ -16,7 +16,7 @@
           <children>
             <HBox alignment="TOP_CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="346.0">
               <children>
-                <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0">
+                <StackPane fx:id="plus1" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" visible="true">
                   <children>
                     <Circle radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
                       <fill>
