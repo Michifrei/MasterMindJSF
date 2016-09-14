@@ -42,8 +42,8 @@ public class MastermindSJF extends Application
     
      public static void main(String[] args) 
      {
-        System.out.println(getIdArray());
-         
+        //System.out.println(getIdArray());
+          
         launch(args);
 
      }

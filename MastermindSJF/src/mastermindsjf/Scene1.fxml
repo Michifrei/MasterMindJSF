@@ -652,22 +652,22 @@
         </HBox>
         <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
           <children>
-            <Circle id="dot1" fx:id="guessDot1" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+            <Circle id="dot1" fx:id="guessDot1" disable="false" fill="$x1" onMouseClicked="#guessDot1Clicked" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
             </Circle>
-            <Circle id="dot2" fx:id="guessDot2" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+            <Circle id="dot2" fx:id="guessDot2" disable="false" fill="$x1" onMouseClicked="#guessDot2Clicked" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
             </Circle>
-            <Circle id="dot3" fx:id="guessDot3" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+            <Circle id="dot3" fx:id="guessDot3" disable="false" fill="$x1" onMouseClicked="#guessDot3Clicked" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
             </Circle>
-            <Circle id="dot4" fx:id="guessDot4" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+            <Circle id="dot4" fx:id="guessDot4" disable="false" fill="$x1" onMouseClicked="#guessDot4Clicked" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
@@ -748,6 +748,7 @@
       <content>
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
           <children>
+            <ProgressIndicator id="loadingWheel" fx:id="startGameLoadingWheel" disable="false" layoutX="115.0" layoutY="190.0" progress="-1.0" visible="false" />
             <VBox alignment="CENTER" layoutX="17.0" layoutY="14.0" prefHeight="209.0" prefWidth="238.0">
               <children>
                 <GridPane>
@@ -805,6 +806,7 @@
                     <Button id="StartGameButton" mnemonicParsing="false" onAction="#startGame" prefHeight="35.0" prefWidth="87.0" text="Start Game" HBox.margin="$x2" />
                   </children>
                 </HBox>
+                <Text id="errorTextField" fx:id="startGameErrorTextField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Error here" visible="false" />
               </children>
             </VBox>
           </children>
