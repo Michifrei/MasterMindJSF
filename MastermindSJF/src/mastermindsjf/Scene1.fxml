@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="750.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="750.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="mastermindsjf.Scene1Controller">
   <children>
     <ImageView fitHeight="75.0" fitWidth="417.0" layoutX="201.0" layoutY="692.0" pickOnBounds="true" preserveRatio="true" x="-200.0">
       <image>
@@ -629,24 +629,24 @@
             </HBox>
           </children>
         </VBox>
-        <Button fx:id="giveUpButton" mnemonicParsing="false" text="Give up" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+        <Button fx:id="giveUpButton" mnemonicParsing="false" onAction="#giveUp" text="Give up" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
           <font>
             <Font size="20.0" fx:id="x5" />
           </font>
         </Button>
-        <Button fx:id="guessButton" font="$x5" mnemonicParsing="false" text="Guess" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+        <Button fx:id="guessButton" font="$x5" mnemonicParsing="false" onAction="#guess" text="Guess" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
         <HBox alignment="TOP_CENTER" fillHeight="true" prefHeight="76.0" prefWidth="360.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
           <children>
-            <Button fx:id="blueButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Blue" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true">
+            <Button fx:id="blueButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#bluePressed" prefHeight="50.0" prefWidth="50.0" text="Blue" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true">
               <HBox.margin>
                 <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" fx:id="x3" />
               </HBox.margin>
             </Button>
-            <Button fx:id="greenButon" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Green" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button fx:id="yellowButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Yellow" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button fx:id="redButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Red" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button id="purpleButton" fx:id="PurpleButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Purple" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button fx:id="orangeButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Orange" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="greenButon" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#greenPressed" prefHeight="50.0" prefWidth="50.0" text="Green" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="yellowButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#yellowPressed" prefHeight="50.0" prefWidth="50.0" text="Yellow" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="redButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#redPressed" prefHeight="50.0" prefWidth="50.0" text="Red" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button id="purpleButton" fx:id="PurpleButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#purplePressed" prefHeight="50.0" prefWidth="50.0" text="Purple" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="orangeButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#orangePressed" prefHeight="50.0" prefWidth="50.0" text="Orange" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
           </children>
         </HBox>
         <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
@@ -680,9 +680,21 @@
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
             </Circle>
-            <Circle id="dot2" fx:id="codeDot2" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER" HBox.margin="$x6" />
-            <Circle id="dot3" fx:id="codedot3" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER" HBox.margin="$x6" />
-            <Circle id="dot4" fx:id="codeDot4" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER" HBox.margin="$x6" />
+            <Circle id="dot2" fx:id="codeDot2" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+              <HBox.margin>
+                <Insets left="5.0" right="5.0" fx:id="x6" />
+              </HBox.margin>
+            </Circle>
+            <Circle id="dot3" fx:id="codedot3" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+              <HBox.margin>
+                <Insets left="5.0" right="5.0" fx:id="x6" />
+              </HBox.margin>
+            </Circle>
+            <Circle id="dot4" fx:id="codeDot4" disable="false" fill="$x1" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+              <HBox.margin>
+                <Insets left="5.0" right="5.0" fx:id="x6" />
+              </HBox.margin>
+            </Circle>
           </children>
         </HBox>
       </children>
@@ -709,7 +721,7 @@
                 <Insets bottom="10.0" fx:id="x4" />
               </VBox.margin>
             </Text>
-            <Button fx:id="newGameButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="New Game">
+            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#newGame" prefHeight="40.0" prefWidth="120.0" text="New Game">
               <font>
                 <Font size="15.0" fx:id="x7" />
               </font>
@@ -717,12 +729,12 @@
                 <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
             </Button>
-            <Button fx:id="AIButton" font="$x7" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="KI Player">
+            <Button fx:id="AIButton" font="$x7" mnemonicParsing="false" onAction="#KIPlayer" prefHeight="40.0" prefWidth="120.0" text="KI Player">
               <VBox.margin>
                 <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
             </Button>
-            <Button fx:id="ManualButton" font="$x7" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Manual">
+            <Button fx:id="ManualButton" font="$x7" mnemonicParsing="false" onAction="#Manual" prefHeight="40.0" prefWidth="120.0" text="Manual">
               <VBox.margin>
                 <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
