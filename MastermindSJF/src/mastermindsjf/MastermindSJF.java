@@ -1,129 +1,72 @@
 
 package mastermindsjf;
 
-import org.json.*;
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.stage.Stage;
 
 
-
-public class MastermindSJF
+public class MastermindSJF extends Application
 {
-    public static void main(String[] args) 
-    {
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Button btn = new Button();
+        btn.setText("Say 'Hello World'");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+ 
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Hello World!");
+            }
+        });
         
-        String[] testStringArray = 
-        {
-            "2|{\"Answer\":[0,1,1,1,2,2]}",
-            "3|{\"Won\":true,\"Tries\":1,\"Code\":[0,1,2]}",
-            "5|{\"Accept\":true,\"Attributes\":{\"NbrColors\":6,\"MaxTries\":122,\"CodeLength\":4}}",
-            "6|{\"Message\":\"I have no idea that happened\",\"ErrorType\":3}"
-        };
+        Parent root = FXMLLoader.load(getClass().getResource("Scene1.fxml"));
         
-        String uriString = "ws://86.119.39.157:8080/echo";
-    
-        //MastermindClient(new URI(uriString), new Draft_10());
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("Hello World!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
         
-        
-        
-        //Start
-        
-        // connect to server
-      
-        
-        // create new game
-        
-        // recieve accept or recieve error
-        
-        // make a guess
-        
-        // recieve answer error or game end
-        
-            // if answer proceed:
-            
-            // if game end proceed here:
-            
-            // if error stop
-            
-        
-        testStringInterpreter(testStringArray[2]);
     }
     
-    static void testStringInterpreter(String serverMessageString)
-    {   
-        String[] parts = serverMessageString.split("[|]");
-        int typeNumber = Integer.parseInt(parts[0]);
-        String messageString = parts[1];
-        JSONObject jsonObject = new JSONObject(messageString);
-        
-        switch (typeNumber)
-        {
-            case 2: 
-                recievedAnswer(jsonObject);
-                break;
-            case 3:
-                gameEnd(jsonObject);
-                break;
-            case 5:
-                acceptResponse(jsonObject);
-                break;
-            case 6:
-                errorMsg(jsonObject);
-                break;
-            default:
-                System.out.println("Error: Wrong typeNumber"); 
-                break;
-        }
-    }
+     public static void main(String[] args) 
+     {
+        System.out.println(getIdArray());
+         
+        launch(args);
 
-    private static void recievedAnswer(JSONObject jsonObject) 
-    {
-        int[] answer = getArrayFromJSONObject(jsonObject, "Answer");
-        
-        
-    }
-
-    private static void gameEnd(JSONObject jsonObject) 
-    {
-        boolean gameWon = jsonObject.getBoolean("Won");
-        int tries = jsonObject.getInt("Tries");
-        int[] code = getArrayFromJSONObject(jsonObject, "Code"); 
-        
-        
-    }
-
-    private static void acceptResponse(JSONObject jsonObject) 
-    {
-        boolean accepted = jsonObject.getBoolean("Accept");
-        JSONObject attributes = jsonObject.getJSONObject("Attributes");
-        int numberOfColors = attributes.getInt("NbrColors");
-        int maxTries = attributes.getInt("MaxTries");
-        int codeLength = attributes.getInt("CodeLength");
-        
-        System.out.println("Accept: "+accepted);
-        System.out.println("NbrColors: "+numberOfColors);
-        System.out.println("MaxTries: "+maxTries);
-        System.out.println("codeLength: "+codeLength);
-    }
-
-    private static void errorMsg(JSONObject jsonObject) 
-    {
-           String errorMsg = jsonObject.getString("Message");
-           System.out.println("ERROR: "+errorMsg);
-    }
-    
-    
-    // Utility
-    private static int[] getArrayFromJSONObject(JSONObject jsonObject, String key)
-    {
-        JSONArray jsonArray = jsonObject.getJSONArray(key);
-        int[] answerArray = new int[jsonArray.length()];
-        
-        // Fill answerArray with the JSON values
-        for(int i=0; i<jsonArray.length(); i++)
-        {
-            answerArray[i] = jsonArray.getInt(i);
-            //System.out.println("answerArray["+i+"] = "+answerArray[i]);
-        }
-        return answerArray;
-    }
+     }
+     
+     public static String[][] getIdArray()
+     {
+         String[] idLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
+         
+         String[][] rowArray = new String[12][4];
+         String currentIdString = "";
+         
+         for(int i=0; i<idLetters.length; i++)
+         {
+             for(int j=0; j<4; j++)
+             {
+                 currentIdString = "dot"+idLetters[i]+Integer.toString(j+1);
+                 
+                 System.out.println("rowArray["+i+"]["+j+"] = "+currentIdString);
+                 rowArray[i][j] = currentIdString;
+             }
+         }
+         
+         return rowArray;
+     }
 }
 
