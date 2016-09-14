@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mastermindsjf;
+package mastermind;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ public class MasterMindGame {
     private int maxTries;
     private int codeLength;
     private int numColor;
-    private int[] code;
+    private final int[] code;
     private int tries;
     private boolean gameEnd;
 
@@ -31,7 +31,6 @@ public class MasterMindGame {
     }
 
     public int[] Guess(int guess[]) {
-        int[] output = new int[codeLength];
         checkGuessInput(guess);
         int exactMatches = getExactMatches(guess);
         int colourMatches = getColourMatches(guess);
@@ -46,6 +45,18 @@ public class MasterMindGame {
 
     public int getTries() {
         return tries;
+    }
+
+    public int getMaxTries() {
+        return maxTries;
+    }
+
+    public int getCodeLength() {
+        return codeLength;
+    }
+
+    public int getNumColor() {
+        return numColor;
     }
 
     //create a new Code
@@ -83,26 +94,32 @@ public class MasterMindGame {
 
     //Get Number of ColourMatches
     private int getColourMatches(int[] guess) {
-        int[] code = this.code;
+
+        int[] newcode = new int[code.length];
+                int[] newguess = new int[code.length];
+        for (int i = 0; i < code.length; i++) {
+            newcode[i] = code[i];
+            newguess[i] = guess[i];
+        }
+        
         int colourMatches = 0;
         //Set all ExactMatches -1
-        for (int index = 0; index < guess.length; index++) {
-            if (guess[index] == code[index]) {
-                guess[index] = -1;
-                code[index] = -1;
+        for (int index = 0; index < newguess.length; index++) {
+            if (newguess[index] == newcode[index]) {
+                newguess[index] = -1;
+                newcode[index] = -1;
 
             }
         }
         //Count ColoutMatches
-        for (int indexcode = 0; indexcode < code.length; indexcode++) {
-            if (code[indexcode] != -1) {
-                for (int indexguess = 0; indexguess < guess.length; indexguess++) {
-                    if (code[indexcode] == guess[indexcode]) {
-                        guess[indexcode] = -1;
+        for (int indexcode = 0; indexcode < newcode.length; indexcode++) {
+                for (int indexguess = 0; indexguess < newguess.length; indexguess++) {
+                    if (newcode[indexcode] == newguess[indexguess]&&newguess[indexguess]!=-1&&newcode[indexcode] != -1) {
+                        newguess[indexguess] = -1;
+                        newcode[indexcode] = -1;
                         colourMatches++;
                     }
                 }
-            }
         }
         return colourMatches;
     }
@@ -121,7 +138,7 @@ public class MasterMindGame {
             if (index < falseMatches) {
                 out[index] = 0;
             }
-            if (index >= arrayLength-exactMatches) {
+            if (index >= arrayLength - exactMatches) {
                 out[index] = 2;
             }
         }
