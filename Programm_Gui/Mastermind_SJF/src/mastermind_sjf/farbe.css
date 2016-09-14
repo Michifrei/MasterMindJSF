@@ -1,0 +1,3 @@
+#AnchorPane {                               <<!-- In the scene.fxml has to be written:<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="750.0" stylesheets="@farbe.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="mastermind_sjf.SceneController"-->
+-fx-background-color: white;
+}
