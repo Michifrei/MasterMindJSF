@@ -5,7 +5,6 @@
  */
 package mastermind;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -30,11 +29,22 @@ public class MasterMindGame {
 
     }
 
-    public int[] Guess(int guess[]) {
+    public int[] Guess(int guess[]) throws Exception {
         checkGuessInput(guess);
+        
+        if(getMaxTries() == getTries()){
+            throw new Exception("Too many Tries");
+        }
+        
+        tries++;
+        
         int exactMatches = getExactMatches(guess);
         int colourMatches = getColourMatches(guess);
         int falseMatches = getFalseMatches(guess);
+        
+        if(exactMatches == codeLength){
+            gameEnd = true;
+        }
 
         return getMatchesIntArray(exactMatches, colourMatches, falseMatches);
     }
