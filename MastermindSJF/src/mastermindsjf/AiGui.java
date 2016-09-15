@@ -6,6 +6,7 @@
 package mastermindsjf;
 
 import Mastermind.saveInput.SaveIntegerInput;
+import java.util.Arrays;
 
 /**
  *
@@ -16,15 +17,19 @@ public class AiGui {
         /*int maxTries = SaveIntegerInput.newInputDialog(null, "Wie viele Versuche", "Versuche", 0, "Keine Zahl", "Error");
         int numColours = SaveIntegerInput.newInputDialog(null, "Wie viele Farben", "Farben", 0, "Keine Zahl", "Error");
         int maxLenght = SaveIntegerInput.newInputDialog(null, "Wie langer Zahlencode", "Zahlencode", 0, "Keine Zahl", "Error");*/
-        int maxTries = 1592;
-        int numColours = 6;
-        int maxLenght = 4;
+        int maxTries = 50;
+        int numColours = 8;
+        int maxLenght = 8;
         
         
         MasterMindGame mmg = new MasterMindGame(maxTries, maxLenght, numColours);
-        //mmg.setCode(new int[]{1,1,0,0});
+        //mmg.setCode(new int[]{0,1,0,1});
         AI ai = new AI(mmg);
-        System.out.println(ai.play());
+        int[][] tries = ai.play();
+        for(int[] trie : tries){
+            System.out.println(Arrays.toString(trie));
+        }
+        System.out.println(mmg.getTries() + " : "+mmg.getMaxTries());
         
     }
 }

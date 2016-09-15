@@ -17,7 +17,7 @@ public class MasterMindGame {
     private int maxTries;
     private int codeLength;
     private int numColor;
-    private final int[] code;
+    private int[] code;
     private int tries;
     private boolean gameEnd;
 
@@ -26,7 +26,12 @@ public class MasterMindGame {
         this.codeLength = codeLength;
         this.numColor = numColor;
         code = createCode();
+        System.out.println("Code: " + Arrays.toString(code)+ "(MasterMindGame Ln. 29)");
 
+    }
+
+    public int[] getCode() {
+        return code;
     }
 
     public int[] Guess(int guess[]) throws Exception {
@@ -46,6 +51,7 @@ public class MasterMindGame {
             gameEnd = true;
         }
 
+        
         return getMatchesIntArray(exactMatches, colourMatches, falseMatches);
     }
 
@@ -78,11 +84,6 @@ public class MasterMindGame {
         }
         return code;
     }
-
-    public int[] getCode() {
-        return code;
-    }
-    
 
     //Check is Input Correct
     private void checkGuessInput(int guess[]) {
@@ -138,6 +139,8 @@ public class MasterMindGame {
         }
         return colourMatches;
     }
+    
+    
 
     //get number of False Matches
     private int getFalseMatches(int[] guess) {
@@ -159,4 +162,10 @@ public class MasterMindGame {
         }
         return out;
     }
+
+    public void setCode(int[] code) {
+        this.code = code;
+    }
+    
+    
 }
