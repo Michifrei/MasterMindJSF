@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mastermind;
+package mastermindsjf;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -78,6 +78,11 @@ public class MasterMindGame {
         }
         return code;
     }
+
+    public int[] getCode() {
+        return code;
+    }
+    
 
     //Check is Input Correct
     private void checkGuessInput(int guess[]) {

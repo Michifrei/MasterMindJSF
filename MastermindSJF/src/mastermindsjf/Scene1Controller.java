@@ -8,17 +8,22 @@ package mastermindsjf;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -37,27 +42,52 @@ public class Scene1Controller //implements Initializable
     ObservableList<String> numberOfTriesChoices = FXCollections.observableArrayList("8", "10", "12");
     ObservableList<String> numberOfColorsChoices = FXCollections.observableArrayList("2", "4", "6");
     
-    public Circle currentDot;
+    public String[][] dotIdArray = getIdArray("dot");
+    public String[][] pinIdArray = getIdArray("pin");
+    public String[] guessButtons = {"guessDot1", "guessDot2", "guessDot3", "guessDot4"};
     
-    ArrayList<String> colorList = new ArrayList<String>() 
+    public ObservableList rowList;
+    
+    public ObservableList dotList;
+    
+    public Scene scene;
+    
+    public Circle currentDot;
+    public MasterMindGame mmg;
+    
+    String grey = "#bfbfbf";
+    int turn = 1;
+    
+    ArrayList<String> dotColorList = new ArrayList<String>() 
     {{
         add("blue"); 
         add("green"); 
         add("yellow"); 
         add("red"); 
-        add("purlple"); 
+        add("purple"); 
         add("orange");
     }};
-    ArrayList<String> hexColorList = new ArrayList<String>()
+    ArrayList<String> dotHexColorList = new ArrayList<String>()
     {{
-        add("0000FF"); 
-        add("00FF00"); 
-        add("FFFF00"); 
-        add("FF0000"); 
-        add("BF00BF"); 
-        add("FF7F00");
+        add("0x0000ffff"); 
+        add("0x00ff00ff"); 
+        add("0xffff00ff"); 
+        add("0xff0000ff"); 
+        add("0xbf00bfff"); 
+        add("0xff7f00ff");
     }};
-    
+    ArrayList<String> pinColorList = new ArrayList<String>() 
+    {{
+        add("empty");
+        add("white"); 
+        add("black"); 
+    }};
+    ArrayList<String> pinHexColorList = new ArrayList<String>()
+    {{
+        add("0x00000000");
+        add("0xffffffff"); 
+        add("0x000000ff"); 
+    }};
     
     
     @FXML
@@ -293,8 +323,6 @@ public class Scene1Controller //implements Initializable
     @FXML
     private Circle codeDot2;
     @FXML
-    private Circle codedot3;
-    @FXML
     private Circle codeDot4;
     @FXML
     private Button newGameButton;
@@ -320,6 +348,10 @@ public class Scene1Controller //implements Initializable
     private ProgressIndicator startGameLoadingWheel;
     @FXML
     private Text startGameErrorTextField;
+    @FXML
+    private GridPane playField;
+    @FXML
+    private Circle codeDot3;
 
     /**
      * Initializes the controller class.
@@ -333,6 +365,25 @@ public class Scene1Controller //implements Initializable
     
     public void initialize()
     {
+        
+        // uiuiui
+        /*
+        ObservableList rowADotList = dotA1.getParent().getChildrenUnmodifiable();
+        rowList.add(rowADotList);
+        
+        rowList.add(dotB1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotC1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotD1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotE1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotF1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotG1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotH1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotI1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotJ1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotK1.getParent().getChildrenUnmodifiable());
+        rowList.add(dotL1.getParent().getChildrenUnmodifiable());
+        */
+               
         numberOfTriesBox.setValue("12");
         numberOfTriesBox.setItems(numberOfTriesChoices);
         
@@ -344,49 +395,78 @@ public class Scene1Controller //implements Initializable
     }
 
     @FXML
-    private void giveUp(ActionEvent event) {
+    private void giveUp(ActionEvent event) 
+    {
+        endGame();
     }
 
     @FXML
     private void guess(ActionEvent event) 
-    {
-        System.out.println("player guessed: ");
+    {        
+        int firstNumber = dotHexColorList.indexOf(guessDot1.fillProperty().getValue().toString());
+        int secondNumber = dotHexColorList.indexOf(guessDot2.fillProperty().getValue().toString());
+        int thirdNumber = dotHexColorList.indexOf(guessDot3.fillProperty().getValue().toString());
+        int fourthNumber = dotHexColorList.indexOf(guessDot4.fillProperty().getValue().toString());
+        
+        int[] guessArray = new int[]{firstNumber, secondNumber, thirdNumber, fourthNumber};
+        int[] answerArray = null;
+        
+        // Set the selected guess on the board...
+        
+        for(int i=1; i<=mmg.getCodeLength(); i++)
+        {
+            //Circle dot = (Circle) scene.lookup("#"+dotIdArray[turn-1][i]);
+            System.out.println(dotIdArray[turn-1][i-1]);
+            Circle dot = (Circle) scene.lookup(dotIdArray[turn-1][i-1]);
+            Circle guessButton = (Circle) scene.lookup("#guessDot"+i);
+            dot.setFill(guessButton.getFill());
+        }
+        
+        // Ask for an answer...
+        try {
+            answerArray = mmg.Guess(guessArray);
+        } catch (Exception ex) {
+            Logger.getLogger(Scene1Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        setAnswer(answerArray);
+        nextTurn(); // proceed to next turn
     }
 
     @FXML
     private void bluePressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(hexColorList.get(colorList.indexOf("blue"))));
+        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("blue"))));
     }
 
     @FXML
     private void greenPressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(hexColorList.get(colorList.indexOf("green"))));
+        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("green"))));
     }
 
     @FXML
     private void yellowPressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(hexColorList.get(colorList.indexOf("yellow"))));
+        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("yellow"))));
     }
 
     @FXML
     private void redPressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(hexColorList.get(colorList.indexOf("red"))));
+        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("red"))));
     }
 
     @FXML
     private void purplePressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(hexColorList.get(colorList.indexOf("purple"))));
+        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("purple"))));
     }
 
     @FXML
     private void orangePressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(hexColorList.get(colorList.indexOf("orange"))));
+        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("orange"))));
     }
 
     @FXML
@@ -426,9 +506,12 @@ public class Scene1Controller //implements Initializable
             return;
         }
         
-        startGameLoadingWheel.setVisible(true);
+        scene = dotA1.getScene();
         
-        MasterMindGame mmg = new MasterMindGame(maxTries, codeLength, numberOfColors);
+        startGameLoadingWheel.setVisible(true);
+        playField.setDisable(false);
+        
+        mmg = new MasterMindGame(maxTries, codeLength, numberOfColors);
         System.out.println("Requested game with "+maxTries+" tries, a "+codeLength+" digit code and "+mmg.getNumColor()+" colors.");
         
         newGameWindow.setDisable(true);
@@ -469,4 +552,74 @@ public class Scene1Controller //implements Initializable
     {
         currentDot = dot;
     }
+    
+    public void setAnswer(int[] answerArray)
+    {
+        //System.out.println("Trying to save the answer");
+        for(int i=0; i<mmg.getCodeLength(); i++)
+        {
+            //Circle dot = (Circle) scene.lookup("#"+dotIdArray[turn-1][i]);
+            Circle pin = (Circle) scene.lookup(pinIdArray[turn-1][i]);
+            pin.setFill(Paint.valueOf(pinHexColorList.get(answerArray[i])));
+        }
+    }
+    
+    public void nextTurn()
+    {
+        guessDot1.setFill(Paint.valueOf(grey));
+        guessDot2.setFill(Paint.valueOf(grey));
+        guessDot3.setFill(Paint.valueOf(grey));
+        guessDot4.setFill(Paint.valueOf(grey));
+
+        if(turn<12)
+        {
+            turn++;
+        }
+        else
+        {
+            endGame();
+        }
+        
+    }
+    
+    public void endGame()
+    {
+        // show code
+        int triesUsed = mmg.getTries();
+        
+        
+        codeDot1.setFill(Paint.valueOf(""));
+        
+        System.out.println("Game has ended");
+        if(mmg.hasWon())
+        {
+            System.out.println("Player has won! in "+triesUsed);
+        }
+        else
+        {
+            System.out.println("Player has lost...");
+        }
+        
+    }
+    
+    public String[][] getIdArray(String prefix)
+     {
+         String[] idLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
+         
+         String[][] rowArray = new String[12][4];
+         String currentIdString = "";
+         
+         for(int i=0; i<idLetters.length; i++)
+         {
+             for(int j=0; j<4; j++)
+             {
+                 currentIdString = "#"+prefix+idLetters[i]+Integer.toString(j+1);
+                 
+                 //System.out.println("rowArray["+i+"]["+j+"] = "+currentIdString);
+                 rowArray[i][j] = currentIdString;
+             }
+         }
+         
+         return rowArray;
+     }
 }
