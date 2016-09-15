@@ -20,21 +20,12 @@ public class MastermindSJF extends Application
 {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
- 
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
         
         Parent root = FXMLLoader.load(getClass().getResource("Scene1.fxml"));
         
         Scene scene = new Scene(root);
 
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("SJF Mastermind");
         primaryStage.setScene(scene);
         primaryStage.show();
         

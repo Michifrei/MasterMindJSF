@@ -18,6 +18,11 @@
         <Image url="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Schweizer_Jugend_forscht_logo.svg/2000px-Schweizer_Jugend_forscht_logo.svg.png" backgroundLoading="false" />
       </image>
     </ImageView>
+    <ImageView fitHeight="730.0" fitWidth="499.99993896484375" layoutX="236.0" layoutY="9.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="http://1.bp.blogspot.com/-p3fTZr1nhhs/T54PP_xQggI/AAAAAAAAAdU/Bu9vvqzExxk/s1600/Brown-fine-wood-texture.png" />
+      </image>
+    </ImageView>
     <GridPane fx:id="playField" disable="true" gridLinesVisible="true" layoutX="236.0" layoutY="10.0" prefHeight="730.0" prefWidth="500.0">
       <children>
         <VBox alignment="BOTTOM_CENTER" disable="false" fillWidth="true" focusTraversable="true" maxHeight="500.0" minHeight="-Infinity" prefHeight="0.0" prefWidth="362.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -638,36 +643,83 @@
         <Button fx:id="guessButton" font="$x5" mnemonicParsing="false" onAction="#guess" text="Guess" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
         <HBox alignment="TOP_CENTER" fillHeight="true" prefHeight="76.0" prefWidth="360.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
           <children>
-            <Button fx:id="blueButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#bluePressed" prefHeight="50.0" prefWidth="50.0" text="Blue" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true">
+            <Button fx:id="blueButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#bluePressed" prefHeight="50.0" prefWidth="50.0" style="" text="Blue" textAlignment="JUSTIFY" textFill="BLUE" textOverrun="ELLIPSIS" underline="false" visible="true">
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" style="&#10;">
+                  <image>
+                    <Image url="@../../../resources/blue30.png" />
+                  </image>
+                </ImageView>
+              </graphic>
               <HBox.margin>
                 <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" fx:id="x3" />
               </HBox.margin>
             </Button>
-            <Button fx:id="greenButon" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#greenPressed" prefHeight="50.0" prefWidth="50.0" text="Green" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button fx:id="yellowButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#yellowPressed" prefHeight="50.0" prefWidth="50.0" text="Yellow" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button fx:id="redButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#redPressed" prefHeight="50.0" prefWidth="50.0" text="Red" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button id="purpleButton" fx:id="PurpleButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#purplePressed" prefHeight="50.0" prefWidth="50.0" text="Purple" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
-            <Button fx:id="orangeButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#orangePressed" prefHeight="50.0" prefWidth="50.0" text="Orange" textAlignment="JUSTIFY" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3" />
+            <Button fx:id="greenButon" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#greenPressed" prefHeight="50.0" prefWidth="50.0" text="Green" textAlignment="JUSTIFY" textFill="LIME" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3">
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" style="&#10;">
+                  <image>
+                    <Image url="@../../../resources/green30.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="yellowButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#yellowPressed" prefHeight="50.0" prefWidth="50.0" text="Yellow" textAlignment="JUSTIFY" textFill="YELLOW" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3">
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" style="&#10;">
+                  <image>
+                    <Image url="@../../../resources/yellow30.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="redButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#redPressed" prefHeight="50.0" prefWidth="50.0" text="Red" textAlignment="JUSTIFY" textFill="RED" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3">
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" style="&#10;">
+                  <image>
+                    <Image url="@../../../resources/red30.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button id="purpleButton" fx:id="PurpleButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#purplePressed" prefHeight="50.0" prefWidth="50.0" text="Purple" textAlignment="JUSTIFY" textFill="#bf00bf" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3">
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" style="&#10;">
+                  <image>
+                    <Image url="@../../../resources/purple30.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="orangeButton" contentDisplay="CENTER" disable="false" focusTraversable="true" mnemonicParsing="false" onAction="#orangePressed" prefHeight="50.0" prefWidth="50.0" text="Orange" textAlignment="JUSTIFY" textFill="#ff7f00" textOverrun="ELLIPSIS" underline="false" visible="true" HBox.margin="$x3">
+              <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" style="&#10;">
+                  <image>
+                    <Image url="@../../../resources/orange30.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
           </children>
         </HBox>
         <HBox id="row1" alignment="CENTER" fillHeight="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="346.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
           <children>
-            <Circle fx:id="guessDot1" disable="false" fill="$x1" onMouseClicked="#guessDot1Clicked" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+            <Circle fx:id="guessDot1" disable="false" fill="$x1" onMouseClicked="#guessDotClicked" onMouseEntered="#guessDotEntered" onMouseExited="#guessDotExited" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
             </Circle>
-            <Circle fx:id="guessDot2" disable="false" fill="$x1" onMouseClicked="#guessDot2Clicked" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+            <Circle fx:id="guessDot2" disable="false" fill="$x1" onMouseClicked="#guessDotClicked" onMouseEntered="#guessDotEntered" onMouseExited="#guessDotExited" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
             </Circle>
-            <Circle fx:id="guessDot3" disable="false" fill="$x1" onMouseClicked="#guessDot3Clicked" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+            <Circle fx:id="guessDot3" disable="false" fill="$x1" onMouseClicked="#guessDotClicked" onMouseEntered="#guessDotEntered" onMouseExited="#guessDotExited" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
             </Circle>
-            <Circle fx:id="guessDot4" disable="false" fill="$x1" onMouseClicked="#guessDot4Clicked" radius="15.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
+            <Circle fx:id="guessDot4" disable="false" fill="$x1" onMouseClicked="#guessDotClicked" onMouseEntered="#guessDotEntered" onMouseExited="#guessDotExited" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="true" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="5.0" right="5.0" fx:id="x6" />
               </HBox.margin>
@@ -730,12 +782,12 @@
                 <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
             </Button>
-            <Button fx:id="AIButton" font="$x7" mnemonicParsing="false" onAction="#KIPlayer" prefHeight="40.0" prefWidth="120.0" text="KI Player">
+            <Button fx:id="AIButton" font="$x7" mnemonicParsing="false" onAction="#AIPlayer" prefHeight="40.0" prefWidth="120.0" text="AI Player">
               <VBox.margin>
                 <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
             </Button>
-            <Button fx:id="ManualButton" font="$x7" mnemonicParsing="false" onAction="#Manual" prefHeight="40.0" prefWidth="120.0" text="Manual">
+            <Button fx:id="ManualButton" font="$x7" mnemonicParsing="false" onAction="#openManual" prefHeight="40.0" prefWidth="120.0" text="Manual">
               <VBox.margin>
                 <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
@@ -748,7 +800,6 @@
       <content>
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
           <children>
-            <ProgressIndicator id="loadingWheel" fx:id="startGameLoadingWheel" disable="false" layoutX="115.0" layoutY="190.0" progress="-1.0" visible="false" />
             <VBox alignment="CENTER" layoutX="17.0" layoutY="14.0" prefHeight="209.0" prefWidth="238.0">
               <children>
                 <GridPane>
@@ -821,7 +872,7 @@
               <children>
                 <Text fx:id="gameOverText" fill="BLACK" smooth="true" strokeType="OUTSIDE" strokeWidth="0.0" text=" You have" visible="true">
                   <font>
-                    <Font size="24.0" />
+                    <Font size="24.0" fx:id="x9" />
                   </font>
                 </Text>
                 <HBox alignment="CENTER" prefHeight="65.0" prefWidth="238.0">
@@ -831,11 +882,39 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />
                       </HBox.margin>
                     </Button>
-                    <Button fx:id="gameOverNewGameButton" mnemonicParsing="false" onAction="#gameOverNewGame" prefHeight="35.0" prefWidth="87.0" text="New Game" textAlignment="CENTER" underline="false" HBox.margin="$x2" />
+                    <Button fx:id="gameOverNewGameButton" mnemonicParsing="false" onAction="#gameOverNewGame" prefHeight="35.0" prefWidth="87.0" text="New Game" textAlignment="CENTER" underline="false">
+                      <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />
+                      </HBox.margin>
+                    </Button>
                   </children>
                 </HBox>
               </children>
             </VBox>
+          </children>
+        </AnchorPane>
+      </content>
+    </TitledPane>
+    <TitledPane id="gameOverWindow" fx:id="manualWindow" animated="true" collapsible="false" contentDisplay="CENTER" disable="true" expanded="true" focusTraversable="true" layoutX="298.0" layoutY="102.0" prefHeight="520.0" prefWidth="382.0" text="Manual" visible="false">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="378.0">
+          <children>
+            <VBox alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" prefHeight="357.0" prefWidth="347.0000999999975">
+              <children>
+                <Text id="gameOverText" fill="BLACK" font="$x9" smooth="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Manual" visible="true" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A pattern of four coloured pegs is generated for every game. Your target is to guess the code consisting of these four pegs. Every peg can have one of six colours. When you make your guess you get an answer consisting of four smaller pegs at the right hand side of your guess. The answer has as many pegs as the code. There are three different possible answers per peg. Firstly there is an empty slot meaning that its colour is not existing in the code. Secondly there is the white peg which means the colour exists in the code but it’s not at the right location. And the third possibility is a black peg which means the colour and location is correct. However, these answers will always be sorted meaning you will not know which of your guess-pegs produced which answer." wrappingWidth="300.0">
+                  <VBox.margin>
+                    <Insets top="5.0" />
+                  </VBox.margin>
+                </Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="How to play: Click the circle above the buttons you want to change and afterwards click a colour-button to change the specific circle to this colour. After having set your next guess, press the guess-button to lock your guess. Your guess will be displayed on the board above and will receive an answer on the right. At the end of the game you can see the code at the very top." visible="true" wrappingWidth="300.0">
+                  <VBox.margin>
+                    <Insets top="10.0" />
+                  </VBox.margin>
+                </Text>
+              </children>
+            </VBox>
+            <Button id="gameOverOkButton" layoutX="148.0" layoutY="438.0" mnemonicParsing="false" onAction="#okManual" prefHeight="35.0" prefWidth="87.0" text="OK" />
           </children>
         </AnchorPane>
       </content>

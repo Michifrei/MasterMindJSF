@@ -345,7 +345,6 @@ public class Scene1Controller //implements Initializable
     private ChoiceBox numberOfTriesBox;
     @FXML
     private Button StartGameCancleButton;
-    @FXML
     private ProgressIndicator startGameLoadingWheel;
     @FXML
     private Text startGameErrorTextField;
@@ -361,6 +360,10 @@ public class Scene1Controller //implements Initializable
     private Button gameOverOkButton;
     @FXML
     private Button gameOverNewGameButton;
+    @FXML
+    private Font x9;
+    @FXML
+    private TitledPane manualWindow;
 
     /**
      * Initializes the controller class.
@@ -405,6 +408,13 @@ public class Scene1Controller //implements Initializable
         int[] guessArray = new int[]{firstNumber, secondNumber, thirdNumber, fourthNumber};
         int[] answerArray = null;
         
+        for(int i=0; i<4; i++)
+        {
+            if(guessArray[i] == -1)
+            {
+                return;
+            }    
+        }
         
         
         // Set the selected guess on the board...
@@ -439,37 +449,61 @@ public class Scene1Controller //implements Initializable
     @FXML
     private void bluePressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("blue"))));
+        if(currentDot != null)
+        {
+            currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("blue"))));
+            removeCurrentDot();
+        }
     }
 
     @FXML
     private void greenPressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("green"))));
+        if(currentDot != null)
+        {
+            currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("green"))));
+            removeCurrentDot();
+        }
     }
 
     @FXML
     private void yellowPressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("yellow"))));
+        if(currentDot != null)
+        {
+            currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("yellow"))));
+            removeCurrentDot();
+        }
     }
 
     @FXML
     private void redPressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("red"))));
+        if(currentDot != null)
+        {    
+            currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("red"))));
+            removeCurrentDot();
+        }
     }
 
     @FXML
     private void purplePressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("purple"))));
+        if(currentDot != null)
+        {
+            currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("purple"))));
+            removeCurrentDot();
+        }
     }
 
     @FXML
     private void orangePressed(ActionEvent event) 
     {
-        currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("orange"))));
+        if(currentDot != null)
+        {
+            currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("orange"))));
+            removeCurrentDot();
+        }
     }
 
     @FXML
@@ -478,13 +512,7 @@ public class Scene1Controller //implements Initializable
         enableAndVisible(newGameWindow);
     }
 
-    @FXML
-    private void KIPlayer(ActionEvent event) {
-    }
 
-    @FXML
-    private void Manual(ActionEvent event) {
-    }
 
     @FXML
     private void cancleStartGame(ActionEvent event) 
@@ -513,7 +541,6 @@ public class Scene1Controller //implements Initializable
         
         resetPlayField(maxTries, codeLength, scene);
         
-        startGameLoadingWheel.setVisible(true);
         playField.setDisable(false);
         
         mmg = new MasterMindGame(maxTries, codeLength, numberOfColors);
@@ -526,36 +553,40 @@ public class Scene1Controller //implements Initializable
     }
 
     @FXML
-    private void guessDot1Clicked(MouseEvent event) 
+    private void guessDotClicked(MouseEvent event) 
     {
+        Circle dot = (Circle) scene.lookup(getGuessDotIdFromMouseEvent(event));
+        dot.setStrokeWidth(2);
         
-        setCurrentDot(guessDot1);
-    }
-    
-    @FXML
-    private void guessDot2Clicked(MouseEvent event) 
-    {
-        
-        setCurrentDot(guessDot2);
-    }
-    
-    @FXML
-    private void guessDot3Clicked(MouseEvent event) 
-    {
-        
-        setCurrentDot(guessDot3);
-    }
-    
-    @FXML
-    private void guessDot4Clicked(MouseEvent event) 
-    {
-        
-        setCurrentDot(guessDot4);
+        setCurrentDot(dot);
     }
     
     public void setCurrentDot(Circle dot)
     {
         currentDot = dot;
+        currentDot.setStrokeWidth(2);
+        
+        for(int i=0; i<4; i++)
+        {
+            System.out.println(currentDot.getId().toString()+" != "+guessButtons[i].toString());
+            Circle otherDot = (Circle) scene.lookup("#"+guessButtons[i]);
+            
+            if(currentDot.getId().toString().equalsIgnoreCase(guessButtons[i].toString()) != true)
+            {
+                
+                otherDot.setStrokeWidth(0);
+            }
+        }
+    }
+    public void removeCurrentDot()
+    {
+        currentDot = null;
+        
+        for(int i=0; i<4; i++)
+        {
+            Circle otherDot = (Circle) scene.lookup("#"+guessButtons[i]);
+            otherDot.setStrokeWidth(0);
+        }
     }
     
     public void setAnswer(int[] answerArray)
@@ -695,4 +726,47 @@ public class Scene1Controller //implements Initializable
         codeDot3.setFill(Paint.valueOf(grey));
         codeDot4.setFill(Paint.valueOf(grey));
     }
+
+    @FXML
+    private void guessDotExited(MouseEvent event) 
+    {
+        Circle dot = (Circle) scene.lookup(getGuessDotIdFromMouseEvent(event));
+        if(currentDot != dot)
+        {
+            dot.setStrokeWidth(0);
+        }
+
+    }
+
+    @FXML
+    private void guessDotEntered(MouseEvent event) 
+    {
+        System.out.println(getGuessDotIdFromMouseEvent(event));
+        Circle dot = (Circle) scene.lookup(getGuessDotIdFromMouseEvent(event));
+        dot.setStrokeWidth(1);
+    }
+    
+    public String getGuessDotIdFromMouseEvent(MouseEvent event)
+    {
+        return "#"+event.getSource().toString().substring(10, 19);
+    }
+
+    @FXML
+    private void AIPlayer(ActionEvent event) 
+    {
+        
+    }
+
+    @FXML
+    private void openManual(ActionEvent event) 
+    {
+        enableAndVisible(manualWindow);
+    }
+
+    @FXML
+    private void okManual(ActionEvent event) 
+    {
+        disableAndInvisible(manualWindow);
+    }
+    
 }
