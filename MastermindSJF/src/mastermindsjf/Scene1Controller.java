@@ -7,6 +7,7 @@ package mastermindsjf;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -352,6 +353,14 @@ public class Scene1Controller //implements Initializable
     private GridPane playField;
     @FXML
     private Circle codeDot3;
+    @FXML
+    private TitledPane gameOverWindow;
+    @FXML
+    private Text gameOverText;
+    @FXML
+    private Button gameOverOkButton;
+    @FXML
+    private Button gameOverNewGameButton;
 
     /**
      * Initializes the controller class.
@@ -366,23 +375,6 @@ public class Scene1Controller //implements Initializable
     public void initialize()
     {
         
-        // uiuiui
-        /*
-        ObservableList rowADotList = dotA1.getParent().getChildrenUnmodifiable();
-        rowList.add(rowADotList);
-        
-        rowList.add(dotB1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotC1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotD1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotE1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotF1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotG1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotH1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotI1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotJ1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotK1.getParent().getChildrenUnmodifiable());
-        rowList.add(dotL1.getParent().getChildrenUnmodifiable());
-        */
                
         numberOfTriesBox.setValue("12");
         numberOfTriesBox.setItems(numberOfTriesChoices);
@@ -403,6 +395,8 @@ public class Scene1Controller //implements Initializable
     @FXML
     private void guess(ActionEvent event) 
     {        
+        
+        
         int firstNumber = dotHexColorList.indexOf(guessDot1.fillProperty().getValue().toString());
         int secondNumber = dotHexColorList.indexOf(guessDot2.fillProperty().getValue().toString());
         int thirdNumber = dotHexColorList.indexOf(guessDot3.fillProperty().getValue().toString());
@@ -410,6 +404,8 @@ public class Scene1Controller //implements Initializable
         
         int[] guessArray = new int[]{firstNumber, secondNumber, thirdNumber, fourthNumber};
         int[] answerArray = null;
+        
+        
         
         // Set the selected guess on the board...
         
@@ -427,6 +423,13 @@ public class Scene1Controller //implements Initializable
             answerArray = mmg.Guess(guessArray);
         } catch (Exception ex) {
             Logger.getLogger(Scene1Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // Check if won..
+        if(Arrays.equals(guessArray, mmg.getCode()))
+        {
+            System.out.println("You have guessed the ansewer!");
+            endGame();
         }
         
         setAnswer(answerArray);
@@ -472,8 +475,7 @@ public class Scene1Controller //implements Initializable
     @FXML
     private void newGame(ActionEvent event) 
     {
-        newGameWindow.setVisible(true);
-        newGameWindow.setDisable(false);
+        enableAndVisible(newGameWindow);
     }
 
     @FXML
@@ -487,13 +489,14 @@ public class Scene1Controller //implements Initializable
     @FXML
     private void cancleStartGame(ActionEvent event) 
     {
-        newGameWindow.setDisable(true);
-        newGameWindow.setVisible(false);
+        disableAndInvisible(newGameWindow);
     }
 
     @FXML
     private void startGame(ActionEvent event) 
     {
+        
+                
         int maxTries = Integer.parseInt(numberOfTriesChoices.get(numberOfTriesBox.getSelectionModel().getSelectedIndex()));
         int codeLength = Integer.parseInt(codeLengthChoices.get(codeLengthBox.getSelectionModel().getSelectedIndex()));
         int numberOfColors = Integer.parseInt(numberOfColorsChoices.get(numberOfColorsBox.getSelectionModel().getSelectedIndex()));;
@@ -507,6 +510,8 @@ public class Scene1Controller //implements Initializable
         }
         
         scene = dotA1.getScene();
+        
+        resetPlayField(maxTries, codeLength, scene);
         
         startGameLoadingWheel.setVisible(true);
         playField.setDisable(false);
@@ -562,6 +567,8 @@ public class Scene1Controller //implements Initializable
             Circle pin = (Circle) scene.lookup(pinIdArray[turn-1][i]);
             pin.setFill(Paint.valueOf(pinHexColorList.get(answerArray[i])));
         }
+        
+        
     }
     
     public void nextTurn()
@@ -584,22 +591,51 @@ public class Scene1Controller //implements Initializable
     
     public void endGame()
     {
+        // Stop the player from playing
+        playField.setDisable(true);
+        
         // show code
+        int[] code = mmg.getCode();
         int triesUsed = mmg.getTries();
-        
-        
-        codeDot1.setFill(Paint.valueOf(""));
+
+        codeDot1.setFill(Paint.valueOf(dotHexColorList.get(code[0])));
+        codeDot2.setFill(Paint.valueOf(dotHexColorList.get(code[1])));
+        codeDot3.setFill(Paint.valueOf(dotHexColorList.get(code[2])));
+        codeDot4.setFill(Paint.valueOf(dotHexColorList.get(code[3])));
         
         System.out.println("Game has ended");
+        // Show message...
         if(mmg.hasWon())
         {
             System.out.println("Player has won! in "+triesUsed);
+            showWonMessage(triesUsed);
         }
         else
         {
             System.out.println("Player has lost...");
+            showLostMessage();
         }
-        
+    }
+    
+    public void showWonMessage(int tries)
+    {
+        gameOverText.setText("You Won in "+tries+" turns!");
+        enableAndVisible(gameOverWindow);
+    }
+    public void showLostMessage()
+    {
+        gameOverText.setText("You Lost!");
+        enableAndVisible(gameOverWindow);
+    }
+    public void enableAndVisible(Node obj)
+    {
+        obj.setDisable(false);
+        obj.setVisible(true);
+    }
+    public void disableAndInvisible(Node obj)
+    {
+        obj.setDisable(true);
+        obj.setVisible(false);
     }
     
     public String[][] getIdArray(String prefix)
@@ -622,4 +658,41 @@ public class Scene1Controller //implements Initializable
          
          return rowArray;
      }
+
+    @FXML
+    private void okGameOver(ActionEvent event) 
+    {
+        disableAndInvisible(gameOverWindow);
+    }
+
+    @FXML
+    private void gameOverNewGame(ActionEvent event) 
+    {
+        disableAndInvisible(gameOverWindow);
+        startGame(event);
+    }
+    
+    public void resetPlayField(int maxTries, int codeLength, Scene scene)
+    {
+        turn = 1;
+        
+        // Reset the dots and pins
+        for(int i=0; i<maxTries; i++)
+        {
+            for(int j=0; j<codeLength; j++)
+            {
+                Circle dot = (Circle) scene.lookup(dotIdArray[i][j]);
+                Circle pin = (Circle) scene.lookup(pinIdArray[i][j]);
+                
+                dot.setFill(Paint.valueOf(grey));
+                pin.setFill(Paint.valueOf(grey));
+            }
+        }
+        
+        // Reset the code
+        codeDot1.setFill(Paint.valueOf(grey));
+        codeDot2.setFill(Paint.valueOf(grey));
+        codeDot3.setFill(Paint.valueOf(grey));
+        codeDot4.setFill(Paint.valueOf(grey));
+    }
 }
