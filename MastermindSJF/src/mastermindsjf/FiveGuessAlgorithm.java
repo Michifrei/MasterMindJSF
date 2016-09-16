@@ -19,28 +19,30 @@ import java.util.Random;
  */
 public class FiveGuessAlgorithm {
 
-    int[][] allGuess;
-    String output = "";
-    MasterMindGame mmg;
-    List<int[]> allGuessList;
-
-    public FiveGuessAlgorithm() {
-    }
+    private int[][] allGuess;
+    private String output = "";
+    private MasterMindGame mmg;
+    private List<int[]> allGuessList;
+    private boolean speedMode = true;
 
     public FiveGuessAlgorithm(int[][] allGuess, MasterMindGame mmg) {
-        this.allGuess = allGuess;
         this.mmg = mmg;
+        this.allGuess = allGuess;
         allGuessList = new LinkedList<>(Arrays.asList(allGuess));
     }
 
+    public void setSpeedMode(boolean speedMode) {
+        this.speedMode = speedMode;
+    }
+
+    
     public int[][] play() {
         List<int[]> tries = new LinkedList<>();
-        
+
         Random rnd = new Random();
         int[] response;
         int actCodeIndex;
         do {
-
             actCodeIndex = getBestActIndex();
 
             //Get new Guess
@@ -75,16 +77,79 @@ public class FiveGuessAlgorithm {
         return tries.toArray(new int[tries.size()][]);
     }
 
-    public int getBestActIndex() {
+    private int getBestActIndex() {
+
+        if (speedMode == true) {
+            return getBestActIndexSpeedMode();
+        } else {
+            return getBestActIndexExactMode();
+        }
+
+    }
+
+    private int getBestActIndexSpeedMode() {
         Random rnd = new Random();
         int bestActIndex;
-        if (allGuessList.size() == Math.pow(mmg.getNumColor(), mmg.getCodeLength())) {
+        if (allGuessList.size() < 7) {
+            bestActIndex = 0;
+        } else if (allGuessList.size() == Math.pow(mmg.getNumColor(), mmg.getCodeLength())) {
             bestActIndex = 7;
         } else {
             bestActIndex = rnd.nextInt(allGuessList.size());
         }
 
         return bestActIndex;
+    }
+
+    private int getBestActIndexExactMode() {
+
+        int[][] colourExactMatches = getAllExactColorOptions();
+        int[][] needTries = new int[allGuessList.size()][colourExactMatches.length];
+        int counter = 0;
+        Iterator<int[]> iter = allGuessList.iterator();
+        while (iter.hasNext()) {
+            int[] code = iter.next();
+            for (int indexColourMatchesExactMatches = 0; indexColourMatchesExactMatches < colourExactMatches.length; indexColourMatchesExactMatches++) {
+                int neddTries = getNumOfRestGuessXExactYColorMatchesSubstracted(code, colourExactMatches[indexColourMatchesExactMatches][0], colourExactMatches[indexColourMatchesExactMatches][1], allGuessList);
+                needTries[counter][indexColourMatchesExactMatches] = neddTries;
+            }
+            counter++;
+        }
+
+        int indexSmallestNum = 1000000000;
+        int smallestNum = 1000000000;
+        for (int indexNeedTries1 = 0; indexNeedTries1 < needTries.length; indexNeedTries1++) {
+            if(getBiggestNum(needTries[indexNeedTries1])<smallestNum){
+                indexSmallestNum = indexNeedTries1;
+                smallestNum = getBiggestNum(needTries[indexNeedTries1]);
+            }
+            
+        }
+
+        return indexSmallestNum;
+    }
+    
+    private int getBiggestNum(int[] array){
+        int biggestNum = 0;
+        for(int a : array){
+         if(a>biggestNum){
+             biggestNum = a;
+         }
+        }
+        return biggestNum;
+    }
+
+    private int[][] getAllExactColorOptions() {
+        List<int[]> colourExactMatchesList = new ArrayList<>();
+        for (int exactMatchtes = 0; exactMatchtes <= mmg.getCodeLength(); exactMatchtes++) {
+            for (int colorMatchtes = 0; colorMatchtes <= mmg.getCodeLength(); colorMatchtes++) {
+                if (colorMatchtes + exactMatchtes <= mmg.getCodeLength()) {
+                    colourExactMatchesList.add(new int[]{exactMatchtes, colorMatchtes});
+
+                }
+            }
+        }
+        return colourExactMatchesList.toArray(new int[colourExactMatchesList.size()][]);
     }
 
     @Override
@@ -109,10 +174,10 @@ public class FiveGuessAlgorithm {
             deleteGuess0ExactAllColor(actCode);
         } else if (exactMatches == mmg.getCodeLength()) {
             deleteGuessAllExact0Color(actCode);
-        } else{
-            deleteGuessXExactYColor(actCode,colourMatches,exactMatches);
+        } else {
+            deleteGuessXExactYColor(actCode, colourMatches, exactMatches);
         }
-            
+
     }
 
     private void deleteGuessWith(int value) {
@@ -187,7 +252,7 @@ public class FiveGuessAlgorithm {
 
     }
 
-    private void deleteGuessXExactYColor(int[] codeIsLike,int colourMatches,int exactMatches) {
+    private void deleteGuessXExactYColor(int[] codeIsLike, int colourMatches, int exactMatches) {
         int counter = 0;
         int counterExact = 0;
 
@@ -201,7 +266,6 @@ public class FiveGuessAlgorithm {
 
             newCodeIsLike = newArray(codeIsLike);
             int[] newCode = newArray(code);
-
 
             for (int index = 0; index < newCodeIsLike.length; index++) {
                 if (newCode[index] == newCodeIsLike[index]) {
@@ -222,7 +286,7 @@ public class FiveGuessAlgorithm {
                 }
             }
 
-            if (counter != colourMatches||counterExact!=exactMatches) {
+            if (counter != colourMatches || counterExact != exactMatches) {
                 iter.remove();
                 allGuessList.remove(code);
             }
@@ -236,6 +300,52 @@ public class FiveGuessAlgorithm {
             newArray[i] = array[i];
         }
         return newArray;
+    }
+
+    private int getNumOfRestGuessXExactYColorMatchesSubstracted(int[] codeIsLike, int colourMatches, int exactMatches, List<int[]> allPossibleGuessArray) {
+
+        List<int[]> newAllPossibleGuessArray = new ArrayList<int[]>(allPossibleGuessArray);
+        int counter = 0;
+        int counterExact = 0;
+
+        int[] newCodeIsLike;
+
+        Iterator<int[]> iter = newAllPossibleGuessArray.iterator();
+        while (iter.hasNext()) {
+            int[] code = iter.next();
+            counter = 0;
+            counterExact = 0;
+
+            newCodeIsLike = newArray(codeIsLike);
+            int[] newCode = newArray(code);
+
+            for (int index = 0; index < newCodeIsLike.length; index++) {
+                if (newCode[index] == newCodeIsLike[index]) {
+                    newCode[index] = -1;
+                    newCodeIsLike[index] = -1;
+                    counterExact++;
+                }
+            }
+
+            for (int indexCodeIsLike = 0; indexCodeIsLike < codeIsLike.length; indexCodeIsLike++) {
+                for (int indexCode = 0; indexCode < code.length; indexCode++) {
+                    if (newCode[indexCode] != -1 && newCodeIsLike[indexCodeIsLike] == newCode[indexCode]) {
+                        newCode[indexCode] = -1;
+                        newCodeIsLike[indexCodeIsLike] = -1;
+                        counter++;
+                        break;
+                    }
+                }
+            }
+
+            if (counter != colourMatches || counterExact != exactMatches) {
+                iter.remove();
+                newAllPossibleGuessArray.remove(code);
+            }
+
+        }
+
+        return newAllPossibleGuessArray.size();
     }
 
 }
