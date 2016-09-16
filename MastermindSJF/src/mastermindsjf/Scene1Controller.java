@@ -8,6 +8,7 @@ package mastermindsjf;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,54 +44,67 @@ public class Scene1Controller //implements Initializable
     ObservableList<String> numberOfTriesChoices = FXCollections.observableArrayList("8", "10", "12");
     ObservableList<String> numberOfColorsChoices = FXCollections.observableArrayList("2", "4", "6");
     
-    public String[][] dotIdArray = getIdArray("dot");
-    public String[][] pinIdArray = getIdArray("pin");
-    public String[] guessButtons = {"guessDot1", "guessDot2", "guessDot3", "guessDot4"};
+    int codeLength = 4;
+    int numberOfTries = 12;
+    int numberOfColors = 6;
     
+    int maxCodeLength = 6;
+    int maxTries = 12;
+    int maxNumberOfColors = 6;
+
+    public String[][] dotIdArray;// = getIdArray("dot");
+    public String[][] pinIdArray;// = getIdArray("pin");
+    public String[] guessDots = {"guessDot1", "guessDot2", "guessDot3", "guessDot4", "guessDot5", "guessDot6"};
+    public String[] guessButtons = {"blueButton", "greenButton", "yellowButton", "redButton", "purpleButton", "orangeButton"};
+    public String[] codeDots = {"codeDot1", "codeDot2", "codeDot3", "codeDot4", "codeDot5", "codeDot6"};
+
     public ObservableList rowList;
-    
+
     public ObservableList dotList;
-    
+
     public Scene scene;
-    
+
     public Circle currentDot;
     public MasterMindGame mmg;
-    
+
     String grey = "#bfbfbf";
     int turn = 1;
-    
-    ArrayList<String> dotColorList = new ArrayList<String>() 
-    {{
-        add("blue"); 
-        add("green"); 
-        add("yellow"); 
-        add("red"); 
-        add("purple"); 
-        add("orange");
-    }};
-    ArrayList<String> dotHexColorList = new ArrayList<String>()
-    {{
-        add("0x0000ffff"); 
-        add("0x00ff00ff"); 
-        add("0xffff00ff"); 
-        add("0xff0000ff"); 
-        add("0xbf00bfff"); 
-        add("0xff7f00ff");
-    }};
-    ArrayList<String> pinColorList = new ArrayList<String>() 
-    {{
-        add("empty");
-        add("white"); 
-        add("black"); 
-    }};
-    ArrayList<String> pinHexColorList = new ArrayList<String>()
-    {{
-        add("0x00000000");
-        add("0xffffffff"); 
-        add("0x000000ff"); 
-    }};
-    
-    
+
+    ArrayList<String> dotColorList = new ArrayList<String>() {
+        {
+            add("blue");
+            add("green");
+            add("yellow");
+            add("red");
+            add("purple");
+            add("orange");
+        }
+    };
+    ArrayList<String> dotHexColorList = new ArrayList<String>() {
+        {
+            add("0x0000ffff");
+            add("0x00ff00ff");
+            add("0xffff00ff");
+            add("0xff0000ff");
+            add("0xbf00bfff");
+            add("0xff7f00ff");
+        }
+    };
+    ArrayList<String> pinColorList = new ArrayList<String>() {
+        {
+            add("empty");
+            add("white");
+            add("black");
+        }
+    };
+    ArrayList<String> pinHexColorList = new ArrayList<String>() {
+        {
+            add("0x00000000");
+            add("0xffffffff");
+            add("0x000000ff");
+        }
+    };
+
     @FXML
     private Circle dotL1;
     @FXML
@@ -364,6 +378,12 @@ public class Scene1Controller //implements Initializable
     private Font x9;
     @FXML
     private TitledPane manualWindow;
+    @FXML
+    private Color x10;
+    @FXML
+    private Circle guessDot5;
+    @FXML
+    private Circle guessDot6;
 
     /**
      * Initializes the controller class.
@@ -374,399 +394,552 @@ public class Scene1Controller //implements Initializable
         // TODO
         
     }    */
-    
-    public void initialize()
-    {
-        
-               
+    public void initialize() {
+
         numberOfTriesBox.setValue("12");
         numberOfTriesBox.setItems(numberOfTriesChoices);
-        
+
         codeLengthBox.setValue("4");
         codeLengthBox.setItems(codeLengthChoices);
-        
+
         numberOfColorsBox.setValue("6");
         numberOfColorsBox.setItems(numberOfColorsChoices);
     }
 
     @FXML
-    private void giveUp(ActionEvent event) 
-    {
-        endGame();
+    private void giveUp(ActionEvent event) {
+        endGame(mmg);
     }
 
     @FXML
-    private void guess(ActionEvent event) 
-    {        
-        
-        
-        int firstNumber = dotHexColorList.indexOf(guessDot1.fillProperty().getValue().toString());
-        int secondNumber = dotHexColorList.indexOf(guessDot2.fillProperty().getValue().toString());
-        int thirdNumber = dotHexColorList.indexOf(guessDot3.fillProperty().getValue().toString());
-        int fourthNumber = dotHexColorList.indexOf(guessDot4.fillProperty().getValue().toString());
-        
-        int[] guessArray = new int[]{firstNumber, secondNumber, thirdNumber, fourthNumber};
+    private void guess(ActionEvent event) {
+
+        List<String> guessDotIdList = new ArrayList<String>();
+        int[] guessArray = new int[codeLength];
         int[] answerArray = null;
         
-        for(int i=0; i<4; i++)
+        for(int i=0; i<codeLength; i++)
         {
-            if(guessArray[i] == -1)
-            {
-                return;
-            }    
+            guessDotIdList.add("#"+guessDots[i]);
+            Circle guessDotObj = (Circle) scene.lookup(guessDotIdList.get(i));
+            int number = dotHexColorList.indexOf(guessDotObj.fillProperty().getValue().toString());
+            guessArray[i] = number;
         }
-        
-        
+
+        // Checks if every button has a color. If not, abort.
+        for (int i = 0; i < codeLength; i++) {
+            if (guessArray[i] == -1) {
+                return;
+            }
+        }
+
         // Set the selected guess on the board...
-        
-        for(int i=1; i<=mmg.getCodeLength(); i++)
-        {
+        for (int i = 0; i < codeLength; i++) {
             //Circle dot = (Circle) scene.lookup("#"+dotIdArray[turn-1][i]);
-            System.out.println(dotIdArray[turn-1][i-1]);
-            Circle dot = (Circle) scene.lookup(dotIdArray[turn-1][i-1]);
-            Circle guessButton = (Circle) scene.lookup("#guessDot"+i);
+            //System.out.println(dotIdArray[turn - 1][i - 1]);
+            Circle dot = (Circle) scene.lookup(dotIdArray[turn - 1][i]);
+            Circle guessButton = (Circle) scene.lookup("#guessDot" + (i+1));
             dot.setFill(guessButton.getFill());
         }
-        
+
         // Ask for an answer...
         try {
             answerArray = mmg.Guess(guessArray);
         } catch (Exception ex) {
             Logger.getLogger(Scene1Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         // Check if won..
-        if(Arrays.equals(guessArray, mmg.getCode()))
-        {
-            System.out.println("You have guessed the ansewer!");
-            endGame();
+        if (Arrays.equals(guessArray, mmg.getCode())) {
+            //System.out.println("You have guessed the ansewer!");
+            endGame(mmg);
+
         }
-        
+
         setAnswer(answerArray);
         nextTurn(); // proceed to next turn
     }
 
     @FXML
-    private void bluePressed(ActionEvent event) 
-    {
-        if(currentDot != null)
-        {
+    private void bluePressed(ActionEvent event) {
+        if (currentDot != null) {
             currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("blue"))));
             removeCurrentDot();
         }
     }
 
     @FXML
-    private void greenPressed(ActionEvent event) 
-    {
-        if(currentDot != null)
-        {
+    private void greenPressed(ActionEvent event) {
+        if (currentDot != null) {
             currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("green"))));
             removeCurrentDot();
         }
     }
 
     @FXML
-    private void yellowPressed(ActionEvent event) 
-    {
-        if(currentDot != null)
-        {
+    private void yellowPressed(ActionEvent event) {
+        if (currentDot != null) {
             currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("yellow"))));
             removeCurrentDot();
         }
     }
 
     @FXML
-    private void redPressed(ActionEvent event) 
-    {
-        if(currentDot != null)
-        {    
+    private void redPressed(ActionEvent event) {
+        if (currentDot != null) {
             currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("red"))));
             removeCurrentDot();
         }
     }
 
     @FXML
-    private void purplePressed(ActionEvent event) 
-    {
-        if(currentDot != null)
-        {
+    private void purplePressed(ActionEvent event) {
+        if (currentDot != null) {
             currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("purple"))));
             removeCurrentDot();
         }
     }
 
     @FXML
-    private void orangePressed(ActionEvent event) 
-    {
-        if(currentDot != null)
-        {
+    private void orangePressed(ActionEvent event) {
+        if (currentDot != null) {
             currentDot.setFill(Paint.valueOf(dotHexColorList.get(dotColorList.indexOf("orange"))));
             removeCurrentDot();
         }
     }
 
     @FXML
-    private void newGame(ActionEvent event) 
-    {
+    private void newGame(ActionEvent event) {
         enableAndVisible(newGameWindow);
     }
 
-
-
     @FXML
-    private void cancleStartGame(ActionEvent event) 
-    {
+    private void cancleStartGame(ActionEvent event) {
         disableAndInvisible(newGameWindow);
     }
 
     @FXML
-    private void startGame(ActionEvent event) 
-    {
+    private void startGame(ActionEvent event) {
+
         
-                
-        int maxTries = Integer.parseInt(numberOfTriesChoices.get(numberOfTriesBox.getSelectionModel().getSelectedIndex()));
-        int codeLength = Integer.parseInt(codeLengthChoices.get(codeLengthBox.getSelectionModel().getSelectedIndex()));
-        int numberOfColors = Integer.parseInt(numberOfColorsChoices.get(numberOfColorsBox.getSelectionModel().getSelectedIndex()));;
-        
-        if(maxTries != 12 || codeLength != 4 || numberOfColors != 6)
-        {
+
+        /*
+        if (maxTries != 12 || codeLength != 4 || numberOfColors != 6) {
             String errorString = "Some values are not supported yet!";
             startGameErrorTextField.setText(errorString);
             startGameErrorTextField.setVisible(true);
             return;
         }
-        
+        */
+
         scene = dotA1.getScene();
+
+        numberOfTries = Integer.parseInt(numberOfTriesChoices.get(numberOfTriesBox.getSelectionModel().getSelectedIndex()));
+        codeLength = Integer.parseInt(codeLengthChoices.get(codeLengthBox.getSelectionModel().getSelectedIndex()));
+        numberOfColors = Integer.parseInt(numberOfColorsChoices.get(numberOfColorsBox.getSelectionModel().getSelectedIndex()));;
         
-        resetPlayField(maxTries, codeLength, scene);
+        dotIdArray = getIdArray("dot");
+        pinIdArray = getIdArray("pin");
+        
+        resetPlayField(scene);
+        
+        // enable all buttons
+        for(int i = 0; i<maxNumberOfColors; i++)
+        {
+            Button button = (Button) scene.lookup("#"+guessButtons[i]); 
+            //System.out.println("button = "+guessButtons[i]);
+            button.setDisable(false);
+            //disableAndInvisible(button);
+        }
+        
+        //disable all unusable Buttons
+        for(int i = maxNumberOfColors; i>numberOfColors; i--)
+        {
+            Button button = (Button) scene.lookup("#"+guessButtons[i-1]); 
+            button.setDisable(true);
+            //disableAndInvisible(button);
+        }
+        
+        
+        // enable all dots
+        for(int v=0; v<maxTries; v++)
+        {
+            for(int i = 0; i<maxCodeLength; i++)
+            {
+                Circle dot = (Circle) scene.lookup(dotIdArray[v][i]); 
+                enableAndVisible(dot);
+            }
+        }
+        
+        //disable all unusable dots
+        for(int v=maxTries; v>numberOfTries; v--)
+        {
+            for(int i = maxCodeLength; i>maxCodeLength; i--)
+            {
+                Circle dot = (Circle) scene.lookup(dotIdArray[v-1][i-1]); 
+                disableAndInvisible(dot);
+            }
+        }
+        // enable all pins
+        for(int v=0; v<maxTries; v++)
+        {
+            for(int i = 0; i<maxCodeLength; i++)
+            {
+                Circle dot = (Circle) scene.lookup(pinIdArray[v][i]); 
+                enableAndVisible(dot);
+            }
+        }
+        //disable all unusable dots
+        for(int v=maxTries; v>numberOfTries; v--)
+        {
+            for(int i = codeLength; i>codeLength; i--)
+            {
+                Circle dot = (Circle) scene.lookup(pinIdArray[v-1][i-1]); 
+                disableAndInvisible(dot);
+            }
+        }
+        
         
         playField.setDisable(false);
-        
-        mmg = new MasterMindGame(maxTries, codeLength, numberOfColors);
-        System.out.println("Requested game with "+maxTries+" tries, a "+codeLength+" digit code and "+mmg.getNumColor()+" colors.");
-        
-        newGameWindow.setDisable(true);
-        newGameWindow.setVisible(false);
-        
+
+        mmg = new MasterMindGame(numberOfTries, codeLength, numberOfColors);
+        //System.out.println("Requested game with " + maxTries + " tries, a " + codeLength + " digit code and " + mmg.getNumColor() + " colors.");
+
+        disableAndInvisible(newGameWindow);
 
     }
 
     @FXML
-    private void guessDotClicked(MouseEvent event) 
-    {
+    private void guessDotClicked(MouseEvent event) {
         Circle dot = (Circle) scene.lookup(getGuessDotIdFromMouseEvent(event));
         dot.setStrokeWidth(2);
-        
+
         setCurrentDot(dot);
     }
-    
-    public void setCurrentDot(Circle dot)
-    {
+
+    public void setCurrentDot(Circle dot) {
         currentDot = dot;
         currentDot.setStrokeWidth(2);
-        
-        for(int i=0; i<4; i++)
-        {
-            System.out.println(currentDot.getId().toString()+" != "+guessButtons[i].toString());
-            Circle otherDot = (Circle) scene.lookup("#"+guessButtons[i]);
-            
-            if(currentDot.getId().toString().equalsIgnoreCase(guessButtons[i].toString()) != true)
-            {
-                
+
+        for (int i = 0; i < codeLength; i++) {
+            //System.out.println(currentDot.getId().toString() + " != " + guessDots[i].toString());
+            Circle otherDot = (Circle) scene.lookup("#" + guessDots[i]);
+
+            if (currentDot.getId().toString().equalsIgnoreCase(guessDots[i].toString()) != true) {
+
                 otherDot.setStrokeWidth(0);
             }
         }
     }
-    public void removeCurrentDot()
-    {
+
+    public void removeCurrentDot() {
         currentDot = null;
-        
-        for(int i=0; i<4; i++)
-        {
-            Circle otherDot = (Circle) scene.lookup("#"+guessButtons[i]);
+
+        for (int i = 0; i < codeLength; i++) {
+            Circle otherDot = (Circle) scene.lookup("#" + guessDots[i]);
             otherDot.setStrokeWidth(0);
         }
     }
-    
-    public void setAnswer(int[] answerArray)
-    {
+
+    public void setAnswer(int[] answerArray) {
         //System.out.println("Trying to save the answer");
-        for(int i=0; i<mmg.getCodeLength(); i++)
-        {
+        for (int i = 0; i < codeLength; i++) {
             //Circle dot = (Circle) scene.lookup("#"+dotIdArray[turn-1][i]);
-            Circle pin = (Circle) scene.lookup(pinIdArray[turn-1][i]);
+            Circle pin = (Circle) scene.lookup(pinIdArray[turn - 1][i]);
             pin.setFill(Paint.valueOf(pinHexColorList.get(answerArray[i])));
         }
-        
-        
-    }
-    
-    public void nextTurn()
-    {
-        guessDot1.setFill(Paint.valueOf(grey));
-        guessDot2.setFill(Paint.valueOf(grey));
-        guessDot3.setFill(Paint.valueOf(grey));
-        guessDot4.setFill(Paint.valueOf(grey));
 
-        if(turn<12)
-        {
-            turn++;
-        }
-        else
-        {
-            endGame();
-        }
-        
     }
-    
-    public void endGame()
-    {
+
+    public void nextTurn() {
+        
+        List<String> guessDotIdList = new ArrayList<String>();
+        
+        for(int i=0; i<codeLength; i++)
+        {
+            guessDotIdList.add("#"+guessDots[i]);
+            Circle guessDotObj = (Circle) scene.lookup(guessDotIdList.get(i));
+            guessDotObj.setFill(Paint.valueOf(grey));
+        }
+
+        if (turn < numberOfTries) {
+            turn++;
+        } else {
+            endGame(mmg);
+        }
+
+    }
+
+    public void endGame(MasterMindGame currentGame) {
         // Stop the player from playing
         playField.setDisable(true);
-        
-        // show code
-        int[] code = mmg.getCode();
-        int triesUsed = mmg.getTries();
+        mmg = null;
 
-        codeDot1.setFill(Paint.valueOf(dotHexColorList.get(code[0])));
-        codeDot2.setFill(Paint.valueOf(dotHexColorList.get(code[1])));
-        codeDot3.setFill(Paint.valueOf(dotHexColorList.get(code[2])));
-        codeDot4.setFill(Paint.valueOf(dotHexColorList.get(code[3])));
+        // show code
+        int[] code = currentGame.getCode();
+        int triesUsed = currentGame.getTries();
         
-        System.out.println("Game has ended");
-        // Show message...
-        if(mmg.hasWon())
+        List<String> codeDotIdList = new ArrayList<String>();
+        
+        for(int i=0; i<codeLength; i++)
         {
-            System.out.println("Player has won! in "+triesUsed);
-            showWonMessage(triesUsed);
+            codeDotIdList.add("#"+codeDots[i]);
+            Circle codeDotObj = (Circle) scene.lookup(codeDotIdList.get(i));
+            codeDotObj.setFill(Paint.valueOf(dotHexColorList.get(code[i])));
         }
-        else
-        {
-            System.out.println("Player has lost...");
+
+        //System.out.println("Game has ended");
+        // Show message...
+        if (currentGame.hasWon()) {
+            //System.out.println("Player has won! in " + triesUsed);
+            showWonMessage(triesUsed);
+        } else {
+            //System.out.println("Player has lost...");
             showLostMessage();
         }
     }
-    
-    public void showWonMessage(int tries)
-    {
-        gameOverText.setText("You Won in "+tries+" turns!");
+
+    public void endAiGame(MasterMindGame game) {
+        // show code
+        int[] code = game.getCode();
+        int triesUsed = game.getTries();
+
+        List<String> codeDotIdList = new ArrayList<String>();
+        
+        for(int i=0; i<codeLength; i++)
+        {
+            codeDotIdList.add("#"+codeDots[i]);
+            Circle codeDotObj = (Circle) scene.lookup(codeDotIdList.get(i));
+            codeDotObj.setFill(Paint.valueOf(dotHexColorList.get(code[i])));
+        }
+
+        //System.out.println("Game has ended");
+        // Show message...
+        if (game.hasWon()) {
+            //System.out.println("The AI beat the game in " + triesUsed + " turns!");
+        } else {
+            //System.out.println("But.. But the AI can't lose!");
+        }
+    }
+
+    public void showWonMessage(int tries) {
+        gameOverText.setText("You Won in " + tries + " turns!");
         enableAndVisible(gameOverWindow);
     }
-    public void showLostMessage()
-    {
+
+    public void showLostMessage() {
         gameOverText.setText("You Lost!");
         enableAndVisible(gameOverWindow);
     }
-    public void enableAndVisible(Node obj)
-    {
+
+    public void enableAndVisible(Node obj) {
         obj.setDisable(false);
         obj.setVisible(true);
     }
-    public void disableAndInvisible(Node obj)
-    {
+
+    public void disableAndInvisible(Node obj) {
         obj.setDisable(true);
         obj.setVisible(false);
     }
-    
-    public String[][] getIdArray(String prefix)
-     {
-         String[] idLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
-         
-         String[][] rowArray = new String[12][4];
-         String currentIdString = "";
-         
-         for(int i=0; i<idLetters.length; i++)
-         {
-             for(int j=0; j<4; j++)
-             {
-                 currentIdString = "#"+prefix+idLetters[i]+Integer.toString(j+1);
-                 
-                 //System.out.println("rowArray["+i+"]["+j+"] = "+currentIdString);
-                 rowArray[i][j] = currentIdString;
-             }
-         }
-         
-         return rowArray;
-     }
+
+    public String[][] getIdArray(String prefix) {
+        String[] idLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
+
+        String[][] rowArray = new String[maxTries][maxCodeLength];
+        String currentIdString;
+
+        for (int i = 0; i < maxTries; i++) {
+            for (int j = 1; j <= maxCodeLength; j++) {
+                currentIdString = "#" + prefix + idLetters[i] + Integer.toString(j);
+
+                //System.out.println("rowArray["+i+"]["+j+"] = "+currentIdString);
+                rowArray[i][j-1] = currentIdString;
+            }
+        }
+
+        return rowArray;
+    }
 
     @FXML
-    private void okGameOver(ActionEvent event) 
-    {
+    private void okGameOver(ActionEvent event) {
         disableAndInvisible(gameOverWindow);
     }
 
     @FXML
-    private void gameOverNewGame(ActionEvent event) 
-    {
+    private void gameOverNewGame(ActionEvent event) {
         disableAndInvisible(gameOverWindow);
         startGame(event);
     }
-    
-    public void resetPlayField(int maxTries, int codeLength, Scene scene)
-    {
+
+    public void resetPlayField(Scene scene) {
         turn = 1;
-        
+
         // Reset the dots and pins
-        for(int i=0; i<maxTries; i++)
-        {
-            for(int j=0; j<codeLength; j++)
-            {
+        for (int i = 0; i < maxTries; i++) {
+            for (int j = 0; j < maxCodeLength; j++) {
+                //System.out.println("dot = "+dotIdArray[i][j]);
                 Circle dot = (Circle) scene.lookup(dotIdArray[i][j]);
                 Circle pin = (Circle) scene.lookup(pinIdArray[i][j]);
-                
+
                 dot.setFill(Paint.valueOf(grey));
+                System.out.println("dotId = "+dotIdArray[i][j]);
+                System.out.println("pinId = "+pinIdArray[i][j]);
                 pin.setFill(Paint.valueOf(grey));
             }
         }
-        
+
         // Reset the code
-        codeDot1.setFill(Paint.valueOf(grey));
-        codeDot2.setFill(Paint.valueOf(grey));
-        codeDot3.setFill(Paint.valueOf(grey));
-        codeDot4.setFill(Paint.valueOf(grey));
+        List<String> codeDotIdList = new ArrayList<String>();
+        
+        for(int i=0; i<codeLength; i++)
+        {
+            codeDotIdList.add("#"+codeDots[i]);
+            Circle codeDotObj = (Circle) scene.lookup(codeDotIdList.get(i));
+            codeDotObj.setFill(Paint.valueOf(grey));
+        }
     }
 
     @FXML
-    private void guessDotExited(MouseEvent event) 
-    {
+    private void guessDotExited(MouseEvent event) {
         Circle dot = (Circle) scene.lookup(getGuessDotIdFromMouseEvent(event));
-        if(currentDot != dot)
-        {
+        if (currentDot != dot) {
             dot.setStrokeWidth(0);
         }
 
     }
 
     @FXML
-    private void guessDotEntered(MouseEvent event) 
-    {
-        System.out.println(getGuessDotIdFromMouseEvent(event));
+    private void guessDotEntered(MouseEvent event) {
+        //System.out.println(getGuessDotIdFromMouseEvent(event));
         Circle dot = (Circle) scene.lookup(getGuessDotIdFromMouseEvent(event));
         dot.setStrokeWidth(1);
     }
-    
-    public String getGuessDotIdFromMouseEvent(MouseEvent event)
-    {
-        return "#"+event.getSource().toString().substring(10, 19);
+
+    public String getGuessDotIdFromMouseEvent(MouseEvent event) {
+        return "#" + event.getSource().toString().substring(10, 19);
     }
 
     @FXML
     private void AIPlayer(ActionEvent event) 
     {
         
+        if(mmg != null)
+        {
+            endGame(mmg);
+        }
+        
+        
+        numberOfTries = Integer.parseInt(numberOfTriesChoices.get(numberOfTriesBox.getSelectionModel().getSelectedIndex()));
+        codeLength = Integer.parseInt(codeLengthChoices.get(codeLengthBox.getSelectionModel().getSelectedIndex()));
+        numberOfColors = Integer.parseInt(numberOfColorsChoices.get(numberOfColorsBox.getSelectionModel().getSelectedIndex()));
+        
+        dotIdArray = getIdArray("dot");
+        pinIdArray = getIdArray("pin");
+        
+        scene = dotA1.getScene();
+        resetPlayField(scene);
+        
+        MasterMindGame aig = new MasterMindGame(numberOfTries, codeLength, numberOfColors);
+        AI aip = new AI(aig);
+        aip.setSpeedMode(false);
+
+        int[][] aiGuesses = aip.play();
+
+        int[] pinAnswerArray = aiGuesses[aiGuesses.length - 1];
+
+        for (int v = 0; v < aiGuesses.length; v++) {
+            for (int i = 0; i < codeLength; i++) {
+                //System.out.println("id = " + dotIdArray[v][i]);
+                Circle fillDot = (Circle) scene.lookup(dotIdArray[v][i]);
+                fillDot.setFill(Paint.valueOf(dotHexColorList.get(aiGuesses[v][i])));
+            }
+
+            int exactMatches = getExactMatches(aiGuesses[v], pinAnswerArray);
+            int colorMatches = getColourMatches(aiGuesses[v], pinAnswerArray);
+            int flaseMatches = getFalseMatches(aiGuesses[v], pinAnswerArray);
+            int[] pinAnswer = getMatchesIntArray(exactMatches, colorMatches, flaseMatches);
+
+            for (int i = 0; i < codeLength; i++) {
+                //System.out.println("id = " + pinIdArray[v][i]);
+                Circle fillDot = (Circle) scene.lookup(pinIdArray[v][i]);
+                fillDot.setFill(Paint.valueOf(pinHexColorList.get(pinAnswer[i])));
+            }
+        }
+
+        endAiGame(aig);
     }
 
     @FXML
-    private void openManual(ActionEvent event) 
-    {
+    private void openManual(ActionEvent event) {
         enableAndVisible(manualWindow);
     }
 
     @FXML
-    private void okManual(ActionEvent event) 
-    {
+    private void okManual(ActionEvent event) {
         disableAndInvisible(manualWindow);
     }
-    
+
+    //Get number of Exact Matches
+    private int getExactMatches(int[] guess, int[] code) {
+        int exactMatches = 0;
+        for (int index = 0; index < guess.length; index++) {
+            if (guess[index] == code[index]) {
+                exactMatches++;
+            }
+        }
+        return exactMatches;
+    }
+
+//Get Number of ColourMatches
+    private int getColourMatches(int[] guess, int[] code) {
+
+        int[] newcode = new int[code.length];
+        int[] newguess = new int[code.length];
+        for (int i = 0; i < code.length; i++) {
+            newcode[i] = code[i];
+            newguess[i] = guess[i];
+        }
+
+        int colourMatches = 0;
+        //Set all ExactMatches -1
+        for (int index = 0; index < newguess.length; index++) {
+            if (newguess[index] == newcode[index]) {
+                newguess[index] = -1;
+                newcode[index] = -1;
+
+            }
+        }
+        //Count ColourMatches
+        for (int indexcode = 0; indexcode < newcode.length; indexcode++) {
+            for (int indexguess = 0; indexguess < newguess.length; indexguess++) {
+                if (newcode[indexcode] == newguess[indexguess] && newguess[indexguess] != -1 && newcode[indexcode] != -1) {
+                    newguess[indexguess] = -1;
+                    newcode[indexcode] = -1;
+                    colourMatches++;
+                }
+            }
+        }
+        return colourMatches;
+    }
+
+    //get number of False Matches
+    private int getFalseMatches(int[] guess, int[] code) {
+        return guess.length - getColourMatches(guess, code) - getExactMatches(guess, code);
+    }
+
+    //Create Array with ExactMatches, ColourMatches, FalseMatches
+    private int[] getMatchesIntArray(int exactMatches, int colourMatches, int falseMatches) {
+        int arrayLength = exactMatches + colourMatches + falseMatches;
+        int[] out = new int[arrayLength];
+        Arrays.fill(out, 1);
+        for (int index = 0; index < out.length; index++) {
+            if (index < falseMatches) {
+                out[index] = 0;
+            }
+            if (index >= arrayLength - exactMatches) {
+                out[index] = 2;
+            }
+        }
+        return out;
+    }
 }
