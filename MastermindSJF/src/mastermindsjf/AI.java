@@ -15,6 +15,7 @@ import java.util.List;
 public class AI {
 
     MasterMindGame mmg;
+    private boolean speedMode = true;
 
     public AI(MasterMindGame mmg) {
         this.mmg = mmg;
@@ -29,6 +30,7 @@ public class AI {
             
             //Play with 5 Guess Algorithm
             FiveGuessAlgorithm fga = new FiveGuessAlgorithm(allGuess,mmg);
+            fga.setSpeedMode(speedMode);
             output = fga.play();
             
         /*} else {
@@ -37,6 +39,12 @@ public class AI {
 */
         return output;
     }
+
+    public void setSpeedMode(boolean speedMode) {
+        this.speedMode = speedMode;
+    }
+    
+    
 
     public final int[][] getAllGuess() {
         //get Array Lenght
