@@ -41,7 +41,7 @@ public class Scene1Controller //implements Initializable
 {
 
     ObservableList<String> codeLengthChoices = FXCollections.observableArrayList("4", "6");
-    ObservableList<String> numberOfTriesChoices = FXCollections.observableArrayList("8", "10", "12");
+    ObservableList<String> numberOfTriesChoices = FXCollections.observableArrayList("12");
     ObservableList<String> numberOfColorsChoices = FXCollections.observableArrayList("2", "4", "6");
     
     int codeLength = 4;
@@ -384,6 +384,20 @@ public class Scene1Controller //implements Initializable
     private Circle guessDot5;
     @FXML
     private Circle guessDot6;
+    @FXML
+    private TitledPane aiPlayerWindow;
+    @FXML
+    private ChoiceBox<?> aiCodeLengthCheckBox;
+    @FXML
+    private ChoiceBox<?> aiNumberOfColorsCheckBox;
+    @FXML
+    private ChoiceBox<?> aiNumberOfTriesCheckBox;
+    @FXML
+    private Button aiCancelButton;
+    @FXML
+    private Button aiDiagnoseButton;
+    @FXML
+    private Button aiSolveButton;
 
     /**
      * Initializes the controller class.
@@ -523,15 +537,6 @@ public class Scene1Controller //implements Initializable
 
         
 
-        /*
-        if (maxTries != 12 || codeLength != 4 || numberOfColors != 6) {
-            String errorString = "Some values are not supported yet!";
-            startGameErrorTextField.setText(errorString);
-            startGameErrorTextField.setVisible(true);
-            return;
-        }
-        */
-
         scene = dotA1.getScene();
 
         numberOfTries = Integer.parseInt(numberOfTriesChoices.get(numberOfTriesBox.getSelectionModel().getSelectedIndex()));
@@ -542,62 +547,6 @@ public class Scene1Controller //implements Initializable
         pinIdArray = getIdArray("pin");
         
         resetPlayField(scene);
-        
-        // enable all buttons
-        for(int i = 0; i<maxNumberOfColors; i++)
-        {
-            Button button = (Button) scene.lookup("#"+guessButtons[i]); 
-            //System.out.println("button = "+guessButtons[i]);
-            button.setDisable(false);
-            //disableAndInvisible(button);
-        }
-        
-        //disable all unusable Buttons
-        for(int i = maxNumberOfColors; i>numberOfColors; i--)
-        {
-            Button button = (Button) scene.lookup("#"+guessButtons[i-1]); 
-            button.setDisable(true);
-            //disableAndInvisible(button);
-        }
-        
-        
-        // enable all dots
-        for(int v=0; v<maxTries; v++)
-        {
-            for(int i = 0; i<maxCodeLength; i++)
-            {
-                Circle dot = (Circle) scene.lookup(dotIdArray[v][i]); 
-                enableAndVisible(dot);
-            }
-        }
-        
-        //disable all unusable dots
-        for(int v=maxTries; v>numberOfTries; v--)
-        {
-            for(int i = maxCodeLength; i>maxCodeLength; i--)
-            {
-                Circle dot = (Circle) scene.lookup(dotIdArray[v-1][i-1]); 
-                disableAndInvisible(dot);
-            }
-        }
-        // enable all pins
-        for(int v=0; v<maxTries; v++)
-        {
-            for(int i = 0; i<maxCodeLength; i++)
-            {
-                Circle dot = (Circle) scene.lookup(pinIdArray[v][i]); 
-                enableAndVisible(dot);
-            }
-        }
-        //disable all unusable dots
-        for(int v=maxTries; v>numberOfTries; v--)
-        {
-            for(int i = codeLength; i>codeLength; i--)
-            {
-                Circle dot = (Circle) scene.lookup(pinIdArray[v-1][i-1]); 
-                disableAndInvisible(dot);
-            }
-        }
         
         
         playField.setDisable(false);
@@ -773,6 +722,8 @@ public class Scene1Controller //implements Initializable
 
     public void resetPlayField(Scene scene) {
         turn = 1;
+        
+        
 
         // Reset the dots and pins
         for (int i = 0; i < maxTries; i++) {
@@ -782,9 +733,66 @@ public class Scene1Controller //implements Initializable
                 Circle pin = (Circle) scene.lookup(pinIdArray[i][j]);
 
                 dot.setFill(Paint.valueOf(grey));
-                System.out.println("dotId = "+dotIdArray[i][j]);
-                System.out.println("pinId = "+pinIdArray[i][j]);
+                //System.out.println("dotId = "+dotIdArray[i][j]);
+                //System.out.println("pinId = "+pinIdArray[i][j]);
                 pin.setFill(Paint.valueOf(grey));
+            }
+        }
+        
+        // enable all buttons
+        for(int i = 0; i<maxNumberOfColors; i++)
+        {
+            Button button = (Button) scene.lookup("#"+guessButtons[i]); 
+            //System.out.println("button = "+guessButtons[i]);
+            button.setDisable(false);
+            //disableAndInvisible(button);
+        }
+        
+        //disable all unusable Buttons
+        for(int i = maxNumberOfColors; i>numberOfColors; i--)
+        {
+            Button button = (Button) scene.lookup("#"+guessButtons[i-1]); 
+            button.setDisable(true);
+            //disableAndInvisible(button);
+        }
+        
+        
+        // enable all dots
+        for(int v=0; v<maxTries; v++)
+        {
+            for(int i = 0; i<maxCodeLength; i++)
+            {
+                Circle dot = (Circle) scene.lookup(dotIdArray[v][i]); 
+                enableAndVisible(dot);
+            }
+        }
+        
+        //disable all unusable dots
+        for(int v=0; v<maxTries; v++)
+        {
+            for(int i = maxCodeLength; i>codeLength; i--)
+            {
+                Circle dot = (Circle) scene.lookup(dotIdArray[v][i-1]); 
+                disableAndInvisible(dot);
+            }
+        }
+        
+        // enable all pins
+        for(int v=0; v<maxTries; v++)
+        {
+            for(int i = 0; i<maxCodeLength; i++)
+            {
+                Circle pin = (Circle) scene.lookup(pinIdArray[v][i]); 
+                enableAndVisible(pin);
+            }
+        }
+        //disable all unusable pins
+        for(int v=0; v<maxTries; v++)
+        {
+            for(int i = maxCodeLength; i>codeLength; i--)
+            {
+                Circle pin = (Circle) scene.lookup(pinIdArray[v][i-1]); 
+                disableAndInvisible(pin);
             }
         }
 
@@ -796,6 +804,19 @@ public class Scene1Controller //implements Initializable
             codeDotIdList.add("#"+codeDots[i]);
             Circle codeDotObj = (Circle) scene.lookup(codeDotIdList.get(i));
             codeDotObj.setFill(Paint.valueOf(grey));
+        }
+        
+        // enable all codeDots
+        for(int i = 0; i<maxCodeLength; i++)
+        {
+            Circle dot = (Circle) scene.lookup("#"+codeDots[i]); 
+            enableAndVisible(dot);
+        }
+        //disable all unusable codeDots
+        for(int i = maxCodeLength; i>codeLength; i--)
+        {
+            Circle dot = (Circle) scene.lookup("#"+codeDots[i-1]); 
+            disableAndInvisible(dot);
         }
     }
 
@@ -822,51 +843,7 @@ public class Scene1Controller //implements Initializable
     @FXML
     private void AIPlayer(ActionEvent event) 
     {
-        
-        if(mmg != null)
-        {
-            endGame(mmg);
-        }
-        
-        
-        numberOfTries = Integer.parseInt(numberOfTriesChoices.get(numberOfTriesBox.getSelectionModel().getSelectedIndex()));
-        codeLength = Integer.parseInt(codeLengthChoices.get(codeLengthBox.getSelectionModel().getSelectedIndex()));
-        numberOfColors = Integer.parseInt(numberOfColorsChoices.get(numberOfColorsBox.getSelectionModel().getSelectedIndex()));
-        
-        dotIdArray = getIdArray("dot");
-        pinIdArray = getIdArray("pin");
-        
-        scene = dotA1.getScene();
-        resetPlayField(scene);
-        
-        MasterMindGame aig = new MasterMindGame(numberOfTries, codeLength, numberOfColors);
-        AI aip = new AI(aig);
-        aip.setSpeedMode(false);
-
-        int[][] aiGuesses = aip.play();
-
-        int[] pinAnswerArray = aiGuesses[aiGuesses.length - 1];
-
-        for (int v = 0; v < aiGuesses.length; v++) {
-            for (int i = 0; i < codeLength; i++) {
-                //System.out.println("id = " + dotIdArray[v][i]);
-                Circle fillDot = (Circle) scene.lookup(dotIdArray[v][i]);
-                fillDot.setFill(Paint.valueOf(dotHexColorList.get(aiGuesses[v][i])));
-            }
-
-            int exactMatches = getExactMatches(aiGuesses[v], pinAnswerArray);
-            int colorMatches = getColourMatches(aiGuesses[v], pinAnswerArray);
-            int flaseMatches = getFalseMatches(aiGuesses[v], pinAnswerArray);
-            int[] pinAnswer = getMatchesIntArray(exactMatches, colorMatches, flaseMatches);
-
-            for (int i = 0; i < codeLength; i++) {
-                //System.out.println("id = " + pinIdArray[v][i]);
-                Circle fillDot = (Circle) scene.lookup(pinIdArray[v][i]);
-                fillDot.setFill(Paint.valueOf(pinHexColorList.get(pinAnswer[i])));
-            }
-        }
-
-        endAiGame(aig);
+        enableAndVisible(aiPlayerWindow);
     }
 
     @FXML
@@ -941,5 +918,64 @@ public class Scene1Controller //implements Initializable
             }
         }
         return out;
+    }
+
+    @FXML
+    private void aiCancleStartGame(ActionEvent event) 
+    {
+        disableAndInvisible(aiPlayerWindow);
+    }
+
+    @FXML
+    private void aiDiagnose(ActionEvent event) {
+    }
+
+    @FXML
+    private void aiStartGame(ActionEvent event) 
+    {
+        if(mmg != null)
+        {
+            endGame(mmg);
+        }
+        
+        
+        numberOfTries = Integer.parseInt(numberOfTriesChoices.get(numberOfTriesBox.getSelectionModel().getSelectedIndex()));
+        codeLength = Integer.parseInt(codeLengthChoices.get(codeLengthBox.getSelectionModel().getSelectedIndex()));
+        numberOfColors = Integer.parseInt(numberOfColorsChoices.get(numberOfColorsBox.getSelectionModel().getSelectedIndex()));
+        
+        dotIdArray = getIdArray("dot");
+        pinIdArray = getIdArray("pin");
+        
+        scene = dotA1.getScene();
+        resetPlayField(scene);
+        
+        MasterMindGame aig = new MasterMindGame(numberOfTries, codeLength, numberOfColors);
+        AI aip = new AI(aig);
+        //aip.setSpeedMode(false);
+
+        int[][] aiGuesses = aip.play();
+
+        int[] pinAnswerArray = aiGuesses[aiGuesses.length - 1];
+
+        for (int v = 0; v < aiGuesses.length; v++) {
+            for (int i = 0; i < codeLength; i++) {
+                //System.out.println("id = " + dotIdArray[v][i]);
+                Circle fillDot = (Circle) scene.lookup(dotIdArray[v][i]);
+                fillDot.setFill(Paint.valueOf(dotHexColorList.get(aiGuesses[v][i])));
+            }
+
+            int exactMatches = getExactMatches(aiGuesses[v], pinAnswerArray);
+            int colorMatches = getColourMatches(aiGuesses[v], pinAnswerArray);
+            int flaseMatches = getFalseMatches(aiGuesses[v], pinAnswerArray);
+            int[] pinAnswer = getMatchesIntArray(exactMatches, colorMatches, flaseMatches);
+
+            for (int i = 0; i < codeLength; i++) {
+                //System.out.println("id = " + pinIdArray[v][i]);
+                Circle fillDot = (Circle) scene.lookup(pinIdArray[v][i]);
+                fillDot.setFill(Paint.valueOf(pinHexColorList.get(pinAnswer[i])));
+            }
+        }
+
+        endAiGame(aig);
     }
 }

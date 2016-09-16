@@ -1187,5 +1187,78 @@
         </AnchorPane>
       </content>
     </TitledPane>
+    <TitledPane fx:id="aiPlayerWindow" animated="true" collapsible="false" contentDisplay="CENTER" disable="true" expanded="true" focusTraversable="true" layoutX="236.0" layoutY="168.0" minWidth="367.0" prefHeight="268.0" prefWidth="367.0" text="AI Player" visible="false">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="199.0" prefWidth="363.0">
+          <children>
+            <VBox alignment="CENTER" layoutX="17.0" layoutY="14.0" prefHeight="190.0" prefWidth="326.0">
+              <children>
+                <GridPane prefWidth="279.5">
+                  <children>
+                    <Label text="Code Length:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <ChoiceBox id="codeLengthBox" fx:id="aiCodeLengthCheckBox" prefWidth="102.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Item 1" />
+                          <String fx:value="Item 2" />
+                          <String fx:value="Item 3" />
+                        </FXCollections>
+                      </items>
+                    </ChoiceBox>
+                    <ChoiceBox id="numberOfColorsButton" fx:id="aiNumberOfColorsCheckBox" prefWidth="102.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Item 1" />
+                          <String fx:value="Item 2" />
+                          <String fx:value="Item 3" />
+                        </FXCollections>
+                      </items>
+                    </ChoiceBox>
+                    <Label text="Colors:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <ChoiceBox id="numberOftriesBox" fx:id="aiNumberOfTriesCheckBox" prefWidth="102.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Item 1" />
+                          <String fx:value="Item 2" />
+                          <String fx:value="Item 3" />
+                        </FXCollections>
+                      </items>
+                    </ChoiceBox>
+                    <Label text="Number of tries:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="180.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="136.0" />
+                  </columnConstraints>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />
+                  </padding>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </GridPane>
+                <HBox alignment="CENTER" prefHeight="65.0" prefWidth="238.0">
+                  <children>
+                    <Button id="StartGameButton" fx:id="aiCancelButton" mnemonicParsing="false" onAction="#aiCancleStartGame" prefHeight="35.0" prefWidth="87.0" text="Cancel" HBox.margin="$x2" />
+                    <Button id="StartGameButton" fx:id="aiDiagnoseButton" mnemonicParsing="false" onAction="#aiDiagnose" prefHeight="35.0" prefWidth="87.0" text="Diagnose" HBox.margin="$x2" />
+                    <Button id="StartGameButton" fx:id="aiSolveButton" mnemonicParsing="false" onAction="#aiStartGame" prefHeight="35.0" prefWidth="87.0" text="Solve">
+                      <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />
+                      </HBox.margin>
+                    </Button>
+                  </children>
+                </HBox>
+                <Text id="errorTextField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Error here" visible="false" />
+              </children>
+            </VBox>
+          </children>
+        </AnchorPane>
+      </content>
+    </TitledPane>
   </children>
 </AnchorPane>
