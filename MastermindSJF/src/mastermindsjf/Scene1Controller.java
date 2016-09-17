@@ -818,6 +818,20 @@ public class Scene1Controller //implements Initializable
             Circle dot = (Circle) scene.lookup("#"+codeDots[i-1]); 
             disableAndInvisible(dot);
         }
+    
+    // enable all guessDots
+        for(int i = 0; i<maxCodeLength; i++)
+        {
+            Circle dot = (Circle) scene.lookup("#"+guessDots[i]); 
+            enableAndVisible(dot);
+        }
+        //disable all unusable codeDots
+        for(int i = maxCodeLength; i>codeLength; i--)
+        {
+            Circle dot = (Circle) scene.lookup("#"+guessDots[i-1]); 
+            disableAndInvisible(dot);
+        }
+    
     }
 
     @FXML
@@ -933,6 +947,8 @@ public class Scene1Controller //implements Initializable
     @FXML
     private void aiStartGame(ActionEvent event) 
     {
+        disableAndInvisible(aiPlayerWindow);
+        
         if(mmg != null)
         {
             endGame(mmg);
